@@ -1,0 +1,74 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+
+  .title {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 50px;
+    font-size: 36px;
+    line-height: 26px;
+    letter-spacing: 0.01em;
+    color: #0D1C2E;
+
+    .divingLine {
+      padding: 0 18px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #0D1C2E;
+      padding-bottom: 17px;
+    }
+
+    .titleLink {
+      border-bottom: 3px solid #000000;
+    }
+  }
+
+  .inputsWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    width: 100%;
+
+    input {
+      margin-bottom: 30px;
+      background: #FFFFFF;
+      border-radius: 6px;
+      border: none;
+      padding: 16px 40px;
+      font-size: 18px;
+      line-height: 26px;
+      text-transform: capitalize;
+      color: #0D1C2E;
+
+      &::placeholder {
+        font-size: 18px;
+        line-height: 26px;
+        text-transform: capitalize;
+        color: #707C97;
+      }
+    }
+  }
+
+  .submit {
+    background: linear-gradient(92.68deg, #7CB8F7 0%, #2A8BF2 100%);
+    box-shadow: 6px 6px 25px rgba(42, 139, 242, 0.15), 4px 4px 25px rgba(42, 139, 242, 0.05), 10px 6px 25px rgba(42, 139, 242, 0.15);
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    padding: 13px 50px;
+    cursor: pointer;
+  }
+}
