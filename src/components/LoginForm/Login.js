@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styles from './LoginForm.module.scss'
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {useHttp} from '../../hooks/http.hook';
 import AuthForm from "../AuthForm/AuthForm";
 
@@ -14,6 +14,7 @@ const Login = ({ location }) => {
   const [userData, setUserData] = useState(defaultData);
   const [token, setToken] = useState(null);
   const {loading, request, error, clearError} = useHttp();
+  const history = useHistory()
 
   useEffect(() => {
     clearError();
@@ -28,11 +29,19 @@ const Login = ({ location }) => {
     });
   }
 
+  const setChatRoute = () => {
+    history.push('/chat')
+  }
+
   const submitHandler = async (e) => {
     e.preventDefault();
-
-    const data = await request('/register', 'POST', { email: userData.email });
-    setToken(data.token);
+    if (!isLogin) {
+      const data = await request('/register', 'POST', { email: userData.email });
+      setToken(data.token);
+    } else {
+      const data = await request('/login', 'POST', { email: userData.email, password: userData.password });
+      setToken(data.token);
+    }
     setIsAuth(true);
   }
 
@@ -41,7 +50,9 @@ const Login = ({ location }) => {
   }
 
   if (isAuth) {
-    return <AuthForm userData={userData} token={token} />
+    return <AuthForm userData={userData} token={token}
+                     isLogin={isLogin} setChatRoute={setChatRoute}
+    />
   }
 
   return (

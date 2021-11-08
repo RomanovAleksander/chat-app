@@ -1,16 +1,16 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect, useState, useContext} from 'react';
 import styles from './AuthForm.module.scss';
 import {useHttp} from "../../hooks/http.hook";
-import useAuth from "../../hooks/auth.hook";
+import {AuthContext} from '../../context/AuthContext';
 
-const AuthForm = ({ userData, token, location }) => {
+const AuthForm = ({ userData, token, isLogin, setChatRoute }) => {
   const inputEl = useRef(null);
   const [secretKey, setSecretKey] = useState({
     'field-1': '', 'field-2': '', 'field-3': '',
     'field-4': '', 'field-5': '', 'field-6': ''
   });
   const {loading, request, error} = useHttp();
-  const {login} = useAuth();
+  const auth = useContext(AuthContext);
 
   const objToString = (obj) => {
     let str ='';
@@ -30,8 +30,6 @@ const AuthForm = ({ userData, token, location }) => {
   const handleChange = (e) => {
     const { maxLength, value, name } = e.target;
 
-    console.log(name, value);
-    console.log(secretKey)
     handleFocus(maxLength, value, name, generateState(secretKey, name, value));
     setSecretKey(prevState => (generateState(prevState, name, value)));
   };
@@ -55,11 +53,18 @@ const AuthForm = ({ userData, token, location }) => {
   };
 
   const handleSubmit = async (state) => {
-    const data = await request('/register/secret', 'POST', {...userData, secretKey: objToString(state)}, {
-      Authorization: token
-    });
-    await login(data.token);
-    location.push('/chat');
+    let data;
+    if (!isLogin) {
+      data = await request('/register/secret', 'POST', {...userData, secretKey: objToString(state)}, {
+        Authorization: token
+      });
+    } else {
+      data = await request('/login/secret', 'POST', {secretKey: objToString(state)}, {
+        Authorization: token
+      });
+    }
+    auth.login(data.token);
+    setChatRoute();
   }
 
   useEffect(() => {
