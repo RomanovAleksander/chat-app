@@ -1,14 +1,23 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from './LoginForm.module.scss'
 import {Link} from 'react-router-dom';
+import {useHttp} from '../../hooks/http.hook';
+import AuthForm from "../AuthForm/AuthForm";
 
 const Login = ({ location }) => {
   const defaultData = {
     email: '', firstName: '',
     lastName: '', password: ''
   };
-  const [userData, setUserData] = useState(defaultData);
   const isLogin = (location.pathname === '/login');
+  const [isAuth, setIsAuth] = useState(false);
+  const [userData, setUserData] = useState(defaultData);
+  const [token, setToken] = useState(null);
+  const {loading, request, error, clearError} = useHttp();
+
+  useEffect(() => {
+    clearError();
+  }, [error, clearError])
 
   const handleChange = (event) => {
     setUserData(prevState => {
@@ -21,6 +30,18 @@ const Login = ({ location }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    const data = await request('/register', 'POST', { email: userData.email });
+    setToken(data.token);
+    setIsAuth(true);
+  }
+
+  if (loading) {
+    return <p>Loading...</p>
+  }
+
+  if (isAuth) {
+    return <AuthForm userData={userData} token={token} />
   }
 
   return (
