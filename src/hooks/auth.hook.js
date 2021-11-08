@@ -1,10 +1,13 @@
 import {useState, useCallback, useEffect} from 'react';
+import {useHttp} from './http.hook';
 
 const storageName = 'userData';
 
 const useAuth = () => {
   const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
   const [ready, setReady] = useState(false);
+  const {request, loading} = useHttp();
 
   const logout = useCallback(() => {
     setToken(null);
@@ -13,8 +16,12 @@ const useAuth = () => {
 
   const login = useCallback(async (jwtToken) => {
     try {
-      setToken(jwtToken);
+      const data = await request('/find', 'GET', null, {
+        Authorization: jwtToken
+      });
+      setUser(data);
 
+      setToken(jwtToken);
       localStorage.setItem(storageName, JSON.stringify({
         token: jwtToken
       }));
@@ -22,7 +29,7 @@ const useAuth = () => {
       console.log(e.message);
       logout();
     }
-  }, [logout]);
+  }, [logout, request]);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem(storageName));
@@ -33,7 +40,7 @@ const useAuth = () => {
     setReady(true);
   }, [login])
 
-  return { login, logout, token, ready };
+  return { login, logout, token, ready, user, loading };
 }
 
 export default useAuth;
