@@ -10,16 +10,20 @@ import PowerIcon from '../../assets/PowerIcon';
 import NavItem from "./NavItem";
 import INavItem from "./NavItemInterface";
 import styles from './Navigation.module.scss';
+import {
+  CALENDAR_ROUTE, CHAT_ROUTE, CONTACT_ROUTE,
+  HOME_ROUTE, NOTIFICATIONS_ROUTE, SETTINGS_ROUTE
+} from "../../utils/consts";
 
 const Navigation: FC = () => {
   const { user, logout } = useAuth();
   const navItems: INavItem[] = [
-    {IconComponent: HomeIcon, value: 'home', link: '/home'},
-    {IconComponent: ChatIcon, value: 'chat', link: '/chat'},
-    {IconComponent: ContactIcon, value: 'contact', link: '/contact'},
-    {IconComponent: NotificationsIcon, value: 'notifications', link: '/notifications'},
-    {IconComponent: CalendarIcon, value: 'calendar', link: '/calendar'},
-    {IconComponent: SettingsIcon, value: 'settings', link: '/settings'},
+    {IconComponent: HomeIcon, value: 'home', link: HOME_ROUTE},
+    {IconComponent: ChatIcon, value: 'chat', link: CHAT_ROUTE},
+    {IconComponent: ContactIcon, value: 'contact', link: CONTACT_ROUTE},
+    {IconComponent: NotificationsIcon, value: 'notifications', link: NOTIFICATIONS_ROUTE},
+    {IconComponent: CalendarIcon, value: 'calendar', link: CALENDAR_ROUTE},
+    {IconComponent: SettingsIcon, value: 'settings', link: SETTINGS_ROUTE},
   ];
 
   if (user) {

@@ -8,15 +8,15 @@ import {
   NOTIFICATIONS_ROUTE, CALENDAR_ROUTE, SETTINGS_ROUTE
 } from "./utils/consts";
 import Login from "./components/LoginForm/Login";
-import Chat from "./components/Chat";
-import DevelopingPage from "./components/DevelopingPage";
+import Chat from "./components/Chat/Chat";
+import DevelopingPage from "./pages/DevelopingPage";
 
 interface Route {
   path: string,
   Component: React.FC
 }
 
-export const publicRoutes:Route[] = [
+export const publicRoutes: Route[] = [
   {
     path: LOGIN_ROUTE,
     Component: Login
@@ -27,7 +27,7 @@ export const publicRoutes:Route[] = [
   }
 ];
 
-export const privateRoutes:Route[] = [
+export const privateRoutes: Route[] = [
   {
     path: CHAT_ROUTE,
     Component: Chat

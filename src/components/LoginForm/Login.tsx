@@ -3,6 +3,7 @@ import styles from './LoginForm.module.scss'
 import {Link, useHistory, useLocation} from 'react-router-dom';
 import {useHttp} from '../../hooks/http.hook';
 import AuthForm from "../AuthForm/AuthForm";
+import {CHAT_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
 
 interface DataInterface {
   [key: string]: string
@@ -14,7 +15,7 @@ const Login:FC = () => {
     email: '', firstName: '',
     lastName: '', password: ''
   };
-  const isLogin = (location.pathname === '/login');
+  const isLogin = (location.pathname === LOGIN_ROUTE);
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [userData, setUserData] = useState<DataInterface>(defaultData);
   const [token, setToken] = useState<string>('');
@@ -35,7 +36,7 @@ const Login:FC = () => {
   }
 
   const setChatRoute = () => {
-    history.push('/chat')
+    history.push(CHAT_ROUTE)
   }
 
   const submitHandler = async (e:FormEvent<HTMLFormElement>) => {
