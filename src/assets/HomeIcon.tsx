@@ -1,6 +1,6 @@
 import * as React from "react"
 
-function HomeIcon(props) {
+const HomeIcon: React.FC = (props) => {
   return (
     <svg
       width={24}

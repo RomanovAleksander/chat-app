@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DevelopingPage = () => {
+const DevelopingPage: React.FC = () => {
   return (
     <div>
       In Developing...

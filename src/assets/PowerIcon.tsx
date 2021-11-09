@@ -1,6 +1,6 @@
 import * as React from "react"
 
-function PowerIcon(props) {
+const PowerIcon: React.FC = (props) => {
   return (
     <svg
       width={24}

@@ -1,18 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, FC, ChangeEvent, FormEvent} from 'react';
 import styles from './LoginForm.module.scss'
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useLocation} from 'react-router-dom';
 import {useHttp} from '../../hooks/http.hook';
 import AuthForm from "../AuthForm/AuthForm";
 
-const Login = ({ location }) => {
+interface DataInterface {
+  [key: string]: string
+}
+
+const Login:FC = () => {
+  const location = useLocation();
   const defaultData = {
     email: '', firstName: '',
     lastName: '', password: ''
   };
   const isLogin = (location.pathname === '/login');
-  const [isAuth, setIsAuth] = useState(false);
-  const [userData, setUserData] = useState(defaultData);
-  const [token, setToken] = useState(null);
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [userData, setUserData] = useState<DataInterface>(defaultData);
+  const [token, setToken] = useState<string>('');
   const {loading, request, error, clearError} = useHttp();
   const history = useHistory()
 
@@ -20,7 +25,7 @@ const Login = ({ location }) => {
     clearError();
   }, [error, clearError])
 
-  const handleChange = (event) => {
+  const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
     setUserData(prevState => {
       return {
         ...prevState,
@@ -33,7 +38,7 @@ const Login = ({ location }) => {
     history.push('/chat')
   }
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isLogin) {
       const data = await request('/register', 'POST', { email: userData.email });

@@ -1,0 +1,23 @@
+import React from 'react';
+import {BrowserRouter as Router} from "react-router-dom";
+import {useAuth} from '../context/AuthContext';
+import AppRouter from "./AppRouter";
+import Navigation from "./Navigation/Navigation";
+
+const App = () => {
+  const { token, ready, loading } = useAuth();
+  const isAuthenticated: boolean = !!token;
+
+  if (!ready || loading) {
+    return <p>Loading...</p>
+  }
+
+  return (
+    <Router>
+      {isAuthenticated && <Navigation/>}
+      <AppRouter isAuthenticated={isAuthenticated}/>
+    </Router>
+  );
+};
+
+export default App;

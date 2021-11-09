@@ -1,6 +1,6 @@
 import * as React from "react"
 
-function NotificationsIcon(props) {
+const NotificationsIcon: React.FC = (props) => {
   return (
     <svg
       width={24}

@@ -1,6 +1,6 @@
 import * as React from "react"
 
-function ContactIcon(props) {
+const ContactIcon: React.FC = (props) => {
   return (
     <svg
       width={24}

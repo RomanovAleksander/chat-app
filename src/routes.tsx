@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   LOGIN_ROUTE,
   CHAT_ROUTE,
@@ -10,7 +11,12 @@ import Login from "./components/LoginForm/Login";
 import Chat from "./components/Chat";
 import DevelopingPage from "./components/DevelopingPage";
 
-export const publicRoutes = [
+interface Route {
+  path: string,
+  Component: React.FC
+}
+
+export const publicRoutes:Route[] = [
   {
     path: LOGIN_ROUTE,
     Component: Login
@@ -21,7 +27,7 @@ export const publicRoutes = [
   }
 ];
 
-export const privateRoutes = [
+export const privateRoutes:Route[] = [
   {
     path: CHAT_ROUTE,
     Component: Chat

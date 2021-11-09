@@ -1,6 +1,6 @@
 import * as React from "react"
 
-function CalendarIcon(props) {
+const CalendarIcon: React.FC = (props) => {
   return (
     <svg
       width={24}

@@ -64,7 +64,15 @@
           text-align: center;
           text-transform: uppercase;
           color: #707C97;
+        }
 
+        &:hover {
+          path {
+            fill: #2A8BF2;
+          }
+          span {
+            color: #2A8BF2;
+          }
         }
       }
     }
@@ -87,6 +95,15 @@
       margin-left: 17px;
       text-align: center;
       text-transform: uppercase
+    }
+
+    &:hover {
+      path {
+        fill: #2A8BF2;
+      }
+      span {
+        color: #2A8BF2;
+      }
     }
   }
 }

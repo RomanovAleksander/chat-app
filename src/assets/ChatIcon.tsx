@@ -1,6 +1,6 @@
 import * as React from "react"
 
-function ChatIcon(props) {
+const ChatIcon: React.FC = (props) => {
   return (
     <svg
       width={24}
