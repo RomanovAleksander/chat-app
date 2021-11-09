@@ -2,6 +2,7 @@ import React, {useRef, useEffect, useState, FC, ChangeEvent} from 'react';
 import styles from './AuthForm.module.scss';
 import {useHttp} from "../../hooks/http.hook";
 import {useAuth} from "../../context/AuthContext";
+import AuthFormInput from "./AuthFormInput";
 
 interface AuthFormProps {
   userData: object,
@@ -22,6 +23,13 @@ const AuthForm: FC<AuthFormProps> = ({ userData, token, isLogin, setChatRoute })
   });
   const {loading, request, error} = useHttp();
   const { login } = useAuth();
+  const formInputs: secretKeyInterface[] = [
+    { name: "field-2" },
+    { name: "field-3" },
+    { name: "field-4" },
+    { name: "field-5" },
+    { name: "field-6" },
+  ];
 
   const objToString = (obj: secretKeyInterface) => {
     let str ='';
@@ -99,31 +107,13 @@ const AuthForm: FC<AuthFormProps> = ({ userData, token, isLogin, setChatRoute })
                value={secretKey['field-1']}
                onChange={handleChange}
         />
-        <input type="tel" name="field-2" pattern="[\d]*"
-               maxLength={1} required
-               value={secretKey['field-2']}
-               onChange={handleChange}
-        />
-        <input type="tel" name="field-3" pattern="[\d]*"
-               maxLength={1} required
-               value={secretKey['field-3']}
-               onChange={handleChange}
-        />
-        <input type="tel" name="field-4" pattern="[\d]*"
-               maxLength={1} required
-               value={secretKey['field-4']}
-               onChange={handleChange}
-        />
-        <input type="tel" name="field-5" pattern="[\d]*"
-               maxLength={1} required
-               value={secretKey['field-5']}
-               onChange={handleChange}
-        />
-        <input type="tel" name="field-6" pattern="[\d]*"
-               maxLength={1} required
-               value={secretKey['field-6']}
-               onChange={handleChange}
-        />
+        {formInputs.map((item) => {
+          return (
+              <div key={item.name}>
+                <AuthFormInput secretKey={secretKey} onChange={handleChange} name={item.name}/>
+              </div>
+          )
+        })}
       </div>
     </form>
   );
