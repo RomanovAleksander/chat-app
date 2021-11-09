@@ -16,7 +16,7 @@ const NotificationsIcon: React.FC = (props) => {
         fill="#231F20"
       />
       <mask
-        id="prefix__a"
+        id="prefix__notifications"
         style={{
           maskType: "alpha",
         }}
@@ -33,7 +33,7 @@ const NotificationsIcon: React.FC = (props) => {
           fill="#fff"
         />
       </mask>
-      <g mask="url(#prefix__a)">
+      <g mask="url(#prefix__notifications)">
         <path fill="#707C97" d="M0 0h24v24H0z" />
       </g>
     </svg>

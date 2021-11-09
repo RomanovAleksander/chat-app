@@ -8,8 +8,8 @@
   width: 290px;
   height: 100%;
   background: #FFFFFF;
-  box-shadow: 14.0351px 0px 25px rgba(86, 128, 248, 0.03),
-  35.0877px 0px 70px rgba(86, 128, 248, 0.05),
+  box-shadow: 14.0351px 0 25px rgba(86, 128, 248, 0.03),
+  35.0877px 0 70px rgba(86, 128, 248, 0.05),
   23.8596px 5.61404px 50px rgba(0, 0, 0, 0.02);
 
   .userNavContainer {
@@ -22,7 +22,7 @@
       .avatar {
         width: 86px;
         height: 86px;
-        margin-top: 91px;
+        margin-top: 52px;
         margin-bottom: 15px;
         border-radius: 50%;
       }
@@ -73,6 +73,15 @@
           span {
             color: #2A8BF2;
           }
+        }
+      }
+
+      .active {
+        path {
+          fill: #2A8BF2;
+        }
+        span {
+          color: #2A8BF2;
         }
       }
     }

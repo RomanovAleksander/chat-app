@@ -1,4 +1,5 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
+import {useLocation} from "react-router-dom";
 import {useAuth} from "../../context/AuthContext";
 import HomeIcon from '../../assets/HomeIcon';
 import ChatIcon from '../../assets/ChatIcon';
@@ -16,15 +17,22 @@ import {
 } from "../../utils/consts";
 
 const Navigation: FC = () => {
+  const location = useLocation();
   const { user, logout } = useAuth();
+  const [activeRoute, setActiveRoute] = useState<string>('')
+  const isActive = (route: string) => (activeRoute === route);
   const navItems: INavItem[] = [
-    {IconComponent: HomeIcon, value: 'home', link: HOME_ROUTE},
-    {IconComponent: ChatIcon, value: 'chat', link: CHAT_ROUTE},
-    {IconComponent: ContactIcon, value: 'contact', link: CONTACT_ROUTE},
-    {IconComponent: NotificationsIcon, value: 'notifications', link: NOTIFICATIONS_ROUTE},
-    {IconComponent: CalendarIcon, value: 'calendar', link: CALENDAR_ROUTE},
-    {IconComponent: SettingsIcon, value: 'settings', link: SETTINGS_ROUTE},
+    {IconComponent: HomeIcon, value: 'home', link: HOME_ROUTE, isActive: isActive(HOME_ROUTE)},
+    {IconComponent: ChatIcon, value: 'chat', link: CHAT_ROUTE, isActive: isActive(CHAT_ROUTE)},
+    {IconComponent: ContactIcon, value: 'contact', link: CONTACT_ROUTE, isActive: isActive(CONTACT_ROUTE)},
+    {IconComponent: NotificationsIcon, value: 'notifications', link: NOTIFICATIONS_ROUTE, isActive: isActive(NOTIFICATIONS_ROUTE)},
+    {IconComponent: CalendarIcon, value: 'calendar', link: CALENDAR_ROUTE, isActive: isActive(CALENDAR_ROUTE)},
+    {IconComponent: SettingsIcon, value: 'settings', link: SETTINGS_ROUTE, isActive: isActive(SETTINGS_ROUTE)},
   ];
+
+  useEffect(() => {
+    setActiveRoute(location.pathname);
+  }, [location])
 
   if (user) {
     return (
@@ -36,7 +44,7 @@ const Navigation: FC = () => {
             </div>
             <nav className={styles.navMenu}>
               {navItems.map((item) => {
-                return <NavItem item={item} key={item.link}/>
+                return <NavItem item={item} key={item.link} />
               })}
             </nav>
           </div>

@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './Chat.module.scss';
 
 const Chat: React.FC = () => {
   return (
-    <div>
+    <div className={styles.wrapper}>
       Chats
     </div>
   );

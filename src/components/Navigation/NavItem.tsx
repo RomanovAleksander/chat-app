@@ -4,10 +4,10 @@ import {Link} from "react-router-dom";
 import INavItem from "./NavItemInterface";
 
 const NavItem: FC<{ item: INavItem }> = ({ item }) => {
-  const { IconComponent, value, link } = item;
+  const { IconComponent, value, link, isActive } = item;
 
   return (
-    <Link className={styles.linkWrapper} to={link} >
+    <Link className={`${styles.linkWrapper} ${isActive ? `${styles.active}` : ''}`} to={link}>
         <IconComponent />
       <span>{value}</span>
     </Link>

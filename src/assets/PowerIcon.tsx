@@ -16,7 +16,7 @@ const PowerIcon: React.FC = (props) => {
         fill="#707C97"
       />
       <mask
-        id="prefix__a"
+        id="prefix__power"
         style={{
           maskType: "alpha",
         }}
@@ -33,7 +33,7 @@ const PowerIcon: React.FC = (props) => {
           fill="#fff"
         />
       </mask>
-      <g mask="url(#prefix__a)">
+      <g mask="url(#prefix__power)">
         <path fill="transparent" d="M0 0h24v24H0z" />
       </g>
     </svg>

@@ -4,7 +4,6 @@ import {privateRoutes, publicRoutes} from "../../routes";
 import {CHAT_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
 
 const AppRouter: FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
-
   return isAuthenticated ? (
     <Switch>
       {privateRoutes.map(({ path, Component }) =>
