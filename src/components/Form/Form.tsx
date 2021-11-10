@@ -1,27 +1,35 @@
 import React, {useState, useEffect, FC, ChangeEvent, FormEvent} from 'react';
-import styles from './LoginForm.module.scss'
 import {Link, useHistory, useLocation} from 'react-router-dom';
 import {useHttp} from '../../hooks/http.hook';
-import AuthForm from "../AuthForm/AuthForm";
+import ConfirmationForm from "./ConfirmationForm/ConfirmationForm";
 import {CHAT_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
 import Loader from "../Loader/Loader";
+import FormInput from "./FormInput";
+import styles from './Form.module.scss';
 
 interface DataInterface {
   [key: string]: string
 }
 
-const Login:FC = () => {
+const Form: FC = () => {
   const location = useLocation();
-  const defaultData = {
-    email: '', firstName: '',
-    lastName: '', password: ''
-  };
+  const defaultData = { email: '', firstName: '', lastName: '', password: '' };
   const isLogin = (location.pathname === LOGIN_ROUTE);
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [userData, setUserData] = useState<DataInterface>(defaultData);
   const [token, setToken] = useState<string>('');
   const {loading, request, error, clearError} = useHttp();
-  const history = useHistory()
+  const history = useHistory();
+  const formInputs = {
+    registration: [
+      { value: userData.firstName, placeholder: 'First Name', name: 'firstName' , type: 'text' },
+      { value: userData.lastName, placeholder: 'Last Name', name: 'lastName' , type: 'text' },
+    ],
+    login: [
+      { value: userData.email, placeholder: 'E-Mail', name: 'email' , type: 'email' },
+      { value: userData.password, placeholder: 'Password', name: 'password' , type: 'password' },
+    ]
+  }
 
   useEffect(() => {
     clearError();
@@ -57,10 +65,11 @@ const Login:FC = () => {
   }
 
   if (isAuth) {
-    return <AuthForm userData={userData} token={token}
-                     isLogin={isLogin} setChatRoute={setChatRoute}
-    />
+    return <ConfirmationForm userData={userData} token={token}
+                             isLogin={isLogin} setChatRoute={setChatRoute} />
   }
+
+  const inputs = (isLogin ? formInputs.login : [...formInputs.registration, ...formInputs.login]);
 
   return (
     <form className={styles.form} onSubmit={submitHandler}>
@@ -70,30 +79,7 @@ const Login:FC = () => {
         <Link to='/registration' className={`${!isLogin ? styles.titleLink : null}`}>Sign Up</Link>
       </div>
       <div className={styles.inputsWrapper}>
-        { !isLogin && (
-          <>
-            <input type="text" placeholder="First Name"
-                   name="firstName" required
-                   value={userData.firstName}
-                   onChange={handleChange}
-            />
-            <input type="text" placeholder="Last Name"
-                   name="lastName" required
-                   value={userData.lastName}
-                   onChange={handleChange}
-            />
-          </>
-        )}
-        <input type="email" placeholder="E-Mail"
-               name="email" required
-               value={userData.email}
-               onChange={handleChange}
-        />
-        <input type="password" placeholder="Password"
-               name="password" required
-               value={userData.password}
-               onChange={handleChange}
-        />
+        { inputs.map((item) => <FormInput item={item} handleChange={handleChange} key={item.name} />) }
       </div>
       <button className={styles.submit} type="submit">
         {isLogin ? 'Sign In' : 'Sign Up'}
@@ -102,4 +88,4 @@ const Login:FC = () => {
   );
 };
 
-export default Login;
+export default Form;

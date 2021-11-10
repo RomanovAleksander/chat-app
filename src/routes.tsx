@@ -7,7 +7,7 @@ import {
   CONTACT_ROUTE,
   NOTIFICATIONS_ROUTE, CALENDAR_ROUTE, SETTINGS_ROUTE
 } from "./utils/consts";
-import Login from "./components/LoginForm/Login";
+import Form from "./components/Form/Form";
 import ChatsPage from "./pages/ChatsPage/ChatsPage";
 import DevelopingPage from "./pages/DevelopingPage/DevelopingPage";
 
@@ -19,11 +19,11 @@ interface Route {
 export const publicRoutes: Route[] = [
   {
     path: LOGIN_ROUTE,
-    Component: Login
+    Component: Form
   },
   {
     path: REGISTRATION_ROUTE,
-    Component: Login
+    Component: Form
   }
 ];
 

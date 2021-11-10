@@ -1,9 +1,9 @@
 import React, {useRef, useEffect, useState, FC, ChangeEvent} from 'react';
-import styles from './AuthForm.module.scss';
-import {useHttp} from "../../hooks/http.hook";
-import {useAuth} from "../../context/AuthContext";
-import AuthFormInput from "./AuthFormInput";
-import Loader from "../Loader/Loader";
+import styles from './ConfirmationForm.module.scss';
+import {useHttp} from "../../../hooks/http.hook";
+import {useAuth} from "../../../context/AuthContext";
+import ConfirmationInput from "./ConfirmationInput";
+import Loader from "../../Loader/Loader";
 
 interface AuthFormProps {
   userData: object,
@@ -16,7 +16,7 @@ interface secretKeyInterface {
   [key: string]: string
 }
 
-const AuthForm: FC<AuthFormProps> = ({ userData, token, isLogin, setChatRoute }) => {
+const ConfirmationForm: FC<AuthFormProps> = ({ userData, token, isLogin, setChatRoute }) => {
   const inputEl = useRef<HTMLInputElement>(null);
   const [secretKey, setSecretKey] = useState<secretKeyInterface>({
     'field-1': '', 'field-2': '', 'field-3': '',
@@ -108,16 +108,12 @@ const AuthForm: FC<AuthFormProps> = ({ userData, token, isLogin, setChatRoute })
                value={secretKey['field-1']}
                onChange={handleChange}
         />
-        {formInputs.map((item) => {
-          return (
-              <div key={item.name}>
-                <AuthFormInput secretKey={secretKey} onChange={handleChange} name={item.name}/>
-              </div>
-          )
-        })}
+        {formInputs.map((item) =>
+            <ConfirmationInput secretKey={secretKey} onChange={handleChange} name={item.name} key={item.name} />
+        )}
       </div>
     </form>
   );
 };
 
-export default AuthForm;
+export default ConfirmationForm;

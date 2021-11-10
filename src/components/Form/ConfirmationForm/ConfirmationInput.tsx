@@ -6,7 +6,7 @@ interface IAuthFormInput {
     onChange: (e:ChangeEvent<HTMLInputElement>) => void
 }
 
-const AuthFormInput: FC<IAuthFormInput> = ({ name, secretKey, onChange }) => {
+const ConfirmationInput: FC<IAuthFormInput> = ({ name, secretKey, onChange }) => {
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
         onChange(e)
     }
@@ -20,4 +20,4 @@ const AuthFormInput: FC<IAuthFormInput> = ({ name, secretKey, onChange }) => {
     );
 };
 
-export default AuthFormInput;
+export default ConfirmationInput;
