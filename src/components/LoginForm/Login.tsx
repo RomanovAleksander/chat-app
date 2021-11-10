@@ -4,6 +4,7 @@ import {Link, useHistory, useLocation} from 'react-router-dom';
 import {useHttp} from '../../hooks/http.hook';
 import AuthForm from "../AuthForm/AuthForm";
 import {CHAT_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
+import Loader from "../Loader/Loader";
 
 interface DataInterface {
   [key: string]: string
@@ -52,7 +53,7 @@ const Login:FC = () => {
   }
 
   if (loading) {
-    return <p>Loading...</p>
+    return <Loader />
   }
 
   if (isAuth) {
@@ -95,7 +96,7 @@ const Login:FC = () => {
         />
       </div>
       <button className={styles.submit} type="submit">
-        Sign In
+        {isLogin ? 'Sign In' : 'Sign Up'}
       </button>
     </form>
   );

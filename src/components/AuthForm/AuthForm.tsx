@@ -3,6 +3,7 @@ import styles from './AuthForm.module.scss';
 import {useHttp} from "../../hooks/http.hook";
 import {useAuth} from "../../context/AuthContext";
 import AuthFormInput from "./AuthFormInput";
+import Loader from "../Loader/Loader";
 
 interface AuthFormProps {
   userData: object,
@@ -91,7 +92,7 @@ const AuthForm: FC<AuthFormProps> = ({ userData, token, isLogin, setChatRoute })
   }, [])
 
   if (loading) {
-    return <p>Loading...</p>
+    return <Loader />
   }
 
   if (error) {

@@ -1,5 +1,4 @@
 .wrapper {
-  position: absolute;
   left: 0;
   top: 0;
   display: flex;
@@ -20,6 +19,7 @@
       width: 100%;
 
       .avatar {
+        display: block;
         width: 86px;
         height: 86px;
         margin-top: 52px;

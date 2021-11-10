@@ -1,0 +1,106 @@
+.chatsList {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  width: 103%;
+  padding-right: 2%;
+
+  .listItem {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    border-radius: 6px;
+    height: 220px;
+    width: 100%;
+    box-shadow: 0 10px 55px rgba(218, 218, 218, 0.05),
+    0 4px 10px rgba(218, 218, 218, 0.25),
+    0 10px 25px rgba(218, 218, 218, 0.05);
+    padding: 30px 40px 40px 40px;
+    margin-bottom: 20px;
+
+    .itemHeader {
+      display: flex;
+      justify-content: space-between;
+
+      .userInfo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 17px;
+
+        .avatar {
+          display: block;
+          margin-right: 20px;
+          width: 54px;
+          height: 54px;
+          border-radius: 50%;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+        }
+
+        .name {
+          color: #0D1C2E;
+          font-size: 18px;
+          line-height: 21px;
+          font-weight: bold;
+          margin-bottom: 6px;
+        }
+
+        .status {
+          color: #2A8BF2;
+          font-size: 16px;
+          line-height: 19px;
+        }
+      }
+
+      .time {
+        color: #707C97;
+        font-size: 16px;
+        line-height: 19px;
+      }
+    }
+
+    .messageContainer {
+      display: flex;
+      width: 100%;
+
+      .message {
+        font-size: 16px;
+        line-height: 26px;
+        color: #707C97;
+        max-width: 449px;
+      }
+
+      .noChecked {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        margin-left: 30px;
+        margin-top: 10px;
+        border-radius: 50%;
+        background: #FF3366;
+        box-shadow: 4px 4px 15px rgba(198, 27, 74, 0.05),
+        2px 2px 10px rgba(198, 27, 74, 0.1),
+        1px 1px 50px rgba(198, 27, 74, 0.15);
+        font-size: 13px;
+        line-height: 15px;
+        color: #FFFFFF;
+      }
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #B7BDCB;
+    border-radius: 10px;
+  }
+}
