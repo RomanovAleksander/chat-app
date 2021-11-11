@@ -5,7 +5,7 @@ interface IUseHttp {
   request: (
       url: string, method?: string, body?: any,
       headers?: {Authorization?: string, "Content-Type"?: string}
-  ) => Promise<{[p: string]: any}>
+  ) => Promise<any>
   error: string | null,
   clearError: () => void
 }
@@ -24,7 +24,7 @@ export const useHttp = () => {
       }
 
       const response = await fetch(url, {method, body, headers});
-      const data: { [key: string]: any } = await response.json();
+      const data: any = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || 'Something went wrong');

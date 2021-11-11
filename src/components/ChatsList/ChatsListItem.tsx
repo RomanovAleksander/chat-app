@@ -1,33 +1,31 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styles from "./ChatsList.module.scss";
+import {IChatsListItem} from "./ChatsList";
 
-const ChatsListItem: React.FC = () => {
+const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
+    const { photo, name, status, time, message, noChecked } = chat;
+
     return (
-        <>
+        <div className={styles.listItem}>
             <div className={styles.itemHeader}>
                 <div className={styles.userInfo}>
                     <div style={{
-                        backgroundImage: `url(/images/user3.jpeg)`
+                        backgroundImage: `url(/images/${photo})`
                     }} className={styles.avatar}/>
                     <div>
-                        <div className={styles.name}>Luy Robin</div>
-                        <div className={styles.status}>last online 5 hours ago</div>
+                        <div className={styles.name}>{name}</div>
+                        <div className={styles.status}>{status}</div>
                     </div>
                 </div>
-                <div className={styles.time}>1 minute ago</div>
+                <div className={styles.time}>{time}</div>
             </div>
             <div className={styles.messageContainer}>
-                <div className={styles.message}>Most of its text is made up from sections 1.10.32–3 of
-                    Cicero's De finibus bonorum et malorum (On the Boundaries of Goods and Evils;
-                    finibus
-                    may
-                    also be translated as purposes).
-                </div>
-                <div className={styles.noChecked}>
-                    <span>2</span>
+                <div className={styles.message}>{message}</div>
+                <div className={`${noChecked ? styles.noChecked : ''}`}>
+                    <span>{noChecked ? noChecked : null}</span>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

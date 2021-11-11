@@ -38,10 +38,8 @@ body {
 #root {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  max-height: 1080px;
-  max-width: 2120px;
   width: 100%;
   height: 100%;
   margin: 0 auto;
