@@ -1,0 +1,65 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 28px 28px 60px;
+  border-bottom: 2px solid rgba(112, 124, 151, 0.1);
+  background: #FAFBFF;
+
+  .userInfo {
+    display: flex;
+    justify-content: center;
+
+    .avatar {
+      display: block;
+      margin-right: 20px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .name {
+      color: #0D1C2E;
+      font-size: 18px;
+      line-height: 21px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .status {
+      color: #2A8BF2;
+      font-size: 16px;
+      line-height: 19px;
+    }
+  }
+
+  .headerButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .btn {
+      border: none;
+      border-radius: 50%;
+      background: #FFFFFF;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.03),
+      0 7px 25px rgba(42, 139, 242, 0.03),
+      0 5px 25px rgba(42, 139, 242, 0.07);
+      width: 52px;
+      height: 52px;
+      cursor: pointer;
+
+      &:first-child {
+        margin-right: 20px;
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}

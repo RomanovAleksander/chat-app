@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
-import styles from './ChatsList.module.scss';
 import ChatsListItem from "./ChatsListItem";
 import {useChat} from "../../context/ChatContext";
+import styles from './ChatsList.module.scss';
 
 export interface IChatsListItem {
     id: string,

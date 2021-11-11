@@ -1,21 +1,21 @@
 import React, {useEffect} from 'react';
 import PlusIcon from "../../assets/PlusIcon";
-import SearchIcon from "../../assets/SearchIcon";
 import ChatsList from "../../components/ChatsList/ChatsList";
-import styles from './ChatsPage.module.scss';
 import Loader from "../../components/Loader/Loader";
 import {useChat} from "../../context/ChatContext";
 import Search from "../../components/Search/Search";
+import Chat from "../../components/Chat/Chat";
+import styles from './ChatsPage.module.scss';
 
 const ChatPage: React.FC = () => {
-    const { getChats, loading, chats } = useChat();
+    const {getChats, loading, chats} = useChat();
 
     useEffect(() => {
         getChats()
     }, [getChats])
 
     if (loading && !chats) {
-        return <Loader />
+        return <Loader/>
     }
 
     if (chats) {
@@ -35,11 +35,11 @@ const ChatPage: React.FC = () => {
                                 </button>
                             </div>
                         </div>
-                        <Search />
+                        <Search/>
                         <ChatsList chats={chats}/>
                     </div>
                     <div className={styles.chatContainer}>
-
+                        <Chat/>
                     </div>
                 </div>
             </div>

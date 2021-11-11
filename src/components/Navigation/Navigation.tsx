@@ -12,7 +12,7 @@ import NavItem from "./NavItem";
 import INavItem from "./NavItemInterface";
 import styles from './Navigation.module.scss';
 import {
-  CALENDAR_ROUTE, CHAT_ROUTE, CONTACT_ROUTE,
+  CALENDAR_ROUTE, CHATS_ROUTE, CONTACT_ROUTE,
   HOME_ROUTE, NOTIFICATIONS_ROUTE, SETTINGS_ROUTE
 } from "../../utils/consts";
 
@@ -23,7 +23,7 @@ const Navigation: FC = () => {
   const isActive = (route: string) => (activeRoute === route);
   const navItems: INavItem[] = [
     {IconComponent: HomeIcon, value: 'home', link: HOME_ROUTE, isActive: isActive(HOME_ROUTE)},
-    {IconComponent: ChatIcon, value: 'chat', link: CHAT_ROUTE, isActive: isActive(CHAT_ROUTE)},
+    {IconComponent: ChatIcon, value: 'chat', link: CHATS_ROUTE, isActive: isActive(CHATS_ROUTE)},
     {IconComponent: ContactIcon, value: 'contact', link: CONTACT_ROUTE, isActive: isActive(CONTACT_ROUTE)},
     {IconComponent: NotificationsIcon, value: 'notifications', link: NOTIFICATIONS_ROUTE, isActive: isActive(NOTIFICATIONS_ROUTE)},
     {IconComponent: CalendarIcon, value: 'calendar', link: CALENDAR_ROUTE, isActive: isActive(CALENDAR_ROUTE)},

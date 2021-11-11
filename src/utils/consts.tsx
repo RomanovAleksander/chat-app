@@ -1,6 +1,7 @@
 export const LOGIN_ROUTE: string = '/login';
 export const REGISTRATION_ROUTE: string = '/registration';
-export const CHAT_ROUTE: string = '/chat';
+export const CHATS_ROUTE: string = '/chats';
+export const CHAT_ROUTE: string = '/chat/:id';
 export const HOME_ROUTE: string = '/home';
 export const CONTACT_ROUTE: string = '/contact';
 export const NOTIFICATIONS_ROUTE: string = '/notifications';

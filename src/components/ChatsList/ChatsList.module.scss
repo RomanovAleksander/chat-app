@@ -5,6 +5,16 @@
   width: 103%;
   padding-right: 2%;
 
+  .listItemWrapper {
+    text-decoration: none;
+    color: transparent;
+    background: transparent;
+
+    &:active {
+      text-decoration: none;
+    }
+  }
+
   .listItem {
     display: flex;
     flex-direction: column;

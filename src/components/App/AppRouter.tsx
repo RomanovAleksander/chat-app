@@ -1,15 +1,15 @@
 import React, {FC} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {privateRoutes, publicRoutes} from "../../routes";
-import {CHAT_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
+import {CHATS_ROUTE, CHAT_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
 
 const AppRouter: FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
   return isAuthenticated ? (
     <Switch>
       {privateRoutes.map(({ path, Component }) =>
-        <Route key={path} path={path} component={Component} exact={true} />
+        <Route key={path} path={path} component={Component} exact={ path !== CHAT_ROUTE } />
       )}
-      <Redirect to={CHAT_ROUTE} />
+      <Redirect to={CHATS_ROUTE} />
     </Switch>
   ) : (
     <Switch>
