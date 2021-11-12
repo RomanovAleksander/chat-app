@@ -2,6 +2,8 @@ import React, {FC} from 'react';
 import styles from "./ChatsList.module.scss";
 import {IChatsListItem} from "./ChatsList";
 import {Link} from "react-router-dom";
+import {timeSince} from "../../utils/convertTime";
+
 
 const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
     const { photo, name, status, time, message, noChecked, id } = chat;
@@ -19,7 +21,7 @@ const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
                             <div className={styles.status}>{status}</div>
                         </div>
                     </div>
-                    <div className={styles.time}>{time}</div>
+                    <div className={styles.time}>{timeSince(time)}</div>
                 </div>
                 <div className={styles.messageContainer}>
                     <div className={styles.message}>{message}</div>

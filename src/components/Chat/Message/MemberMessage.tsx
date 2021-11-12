@@ -4,6 +4,7 @@ import styles from './MemberMessage.module.scss';
 import MoreHorizontalIcon from "../../../assets/MoreHorizontal";
 import FileIcon from "../../../assets/FileIcon";
 import convertFileSize from '../../../utils/convertFileSize';
+import {timeSince} from "../../../utils/convertTime";
 
 const MemberMessage: React.FC<{ message: IMessage }> = ({ message }) => {
     return (
@@ -27,7 +28,7 @@ const MemberMessage: React.FC<{ message: IMessage }> = ({ message }) => {
                         </div> }
                     </div>
                 </div>
-                <div className={styles.date}>2 days ago</div>
+                <div className={styles.date}>{timeSince(message.date)}</div>
             </div>
             <div className={styles.moreButton}>
                 <MoreHorizontalIcon/>

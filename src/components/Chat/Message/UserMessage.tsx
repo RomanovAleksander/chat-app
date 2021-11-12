@@ -5,7 +5,7 @@ import MoreHorizontalIcon from "../../../assets/MoreHorizontal";
 
 const UserMessage: React.FC<{ message: IMessage }> = ({ message }) => {
     return (
-        <div className={styles.message}>
+        <div className={styles.userMessage}>
             <div className={styles.moreButton}>
                 <MoreHorizontalIcon/>
             </div>
