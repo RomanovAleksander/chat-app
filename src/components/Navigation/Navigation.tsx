@@ -23,7 +23,7 @@ const Navigation: FC = () => {
   const isActive = (route: string) => (activeRoute === route);
   const navItems: INavItem[] = [
     {IconComponent: HomeIcon, value: 'home', link: HOME_ROUTE, isActive: isActive(HOME_ROUTE)},
-    {IconComponent: ChatIcon, value: 'chat', link: CHATS_ROUTE, isActive: isActive(CHATS_ROUTE)},
+    {IconComponent: ChatIcon, value: 'chat', link: CHATS_ROUTE, isActive: (isActive(CHATS_ROUTE) || isActive(`/chat/${activeRoute.slice(6)}`))},
     {IconComponent: ContactIcon, value: 'contact', link: CONTACT_ROUTE, isActive: isActive(CONTACT_ROUTE)},
     {IconComponent: NotificationsIcon, value: 'notifications', link: NOTIFICATIONS_ROUTE, isActive: isActive(NOTIFICATIONS_ROUTE)},
     {IconComponent: CalendarIcon, value: 'calendar', link: CALENDAR_ROUTE, isActive: isActive(CALENDAR_ROUTE)},
@@ -32,7 +32,7 @@ const Navigation: FC = () => {
 
   useEffect(() => {
     setActiveRoute(location.pathname);
-  }, [location])
+  }, [location, activeRoute])
 
   if (user) {
     return (

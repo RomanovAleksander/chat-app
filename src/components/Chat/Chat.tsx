@@ -6,6 +6,7 @@ import AttachIcon from "../../assets/AttachIcon";
 import MoreVerticalIcon from "../../assets/MoreVerticalIcon";
 import Messages from "./Messages/Messages";
 import styles from "./Chat.module.scss";
+import Form from "./Form/Form";
 
 const Chat: React.FC = () => {
     const {id} = useParams<{ id: string }>();
@@ -46,6 +47,7 @@ const Chat: React.FC = () => {
                     </div>
                 </div>
                 <Messages messages={messages}/>
+                <Form />
             </div>
         );
     } else return null
