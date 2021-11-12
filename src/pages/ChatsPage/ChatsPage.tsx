@@ -38,9 +38,7 @@ const ChatPage: React.FC = () => {
                         <Search/>
                         <ChatsList chats={chats}/>
                     </div>
-                    <div className={styles.chatContainer}>
-                        <Chat/>
-                    </div>
+                    <Chat/>
                 </div>
             </div>
         );

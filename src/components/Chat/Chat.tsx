@@ -3,7 +3,7 @@ import {useChat} from "../../context/ChatContext";
 import {useParams} from "react-router-dom";
 import Loader from "../Loader/Loader";
 import AttachIcon from "../../assets/AttachIcon";
-import MoreIcon from "../../assets/MoreIcon";
+import MoreVerticalIcon from "../../assets/MoreVerticalIcon";
 import Messages from "./Messages/Messages";
 import styles from "./Chat.module.scss";
 
@@ -25,7 +25,7 @@ const Chat: React.FC = () => {
 
     if (messages && id) {
         return (
-            <>
+            <div className={styles.chatContainer}>
                 <div className={styles.header}>
                     <div className={styles.userInfo}>
                         <div style={{
@@ -41,12 +41,12 @@ const Chat: React.FC = () => {
                             <AttachIcon/>
                         </button>
                         <button className={styles.btn}>
-                            <MoreIcon/>
+                            <MoreVerticalIcon/>
                         </button>
                     </div>
                 </div>
                 <Messages messages={messages}/>
-            </>
+            </div>
         );
     } else return null
 };

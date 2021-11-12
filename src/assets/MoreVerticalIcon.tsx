@@ -1,6 +1,6 @@
 import * as React from "react"
 
-const MoreIcon: React.FC = (props) => {
+const MoreVerticalIcon: React.FC = (props) => {
     return (
         <svg
             width="1em"
@@ -17,7 +17,7 @@ const MoreIcon: React.FC = (props) => {
                 fill="#231F20"
             />
             <mask
-                id="prefix__more"
+                id="prefix__moreVertical"
                 style={{
                     maskType: "alpha",
                 }}
@@ -34,11 +34,11 @@ const MoreIcon: React.FC = (props) => {
                     fill="#fff"
                 />
             </mask>
-            <g mask="url(#prefix__more)">
+            <g mask="url(#prefix__moreVertical)">
                 <path fill="#707C97" d="M0 0h24v24H0z" />
             </g>
         </svg>
     )
 }
 
-export default MoreIcon
+export default MoreVerticalIcon

@@ -1,0 +1,43 @@
+.userMessage {
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+
+  .moreButton {
+    cursor: pointer;
+    margin-right: 14px;
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .messageContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .messageText {
+      max-width: 520px;
+      background: #FFFFFF;
+      border: 1px solid rgba(112, 124, 151, 0.25);
+      box-sizing: border-box;
+      box-shadow: 10px 10px 25px rgba(112, 124, 151, 0.05), 15px 15px 35px rgba(112, 124, 151, 0.05);
+      color: #707C97;
+      font-size: 16px;
+      line-height: 26px;
+      padding: 14px 22px;
+    }
+
+    .date {
+      display: block;
+      position: absolute;
+      width: max-content;
+      right: 0;
+      bottom: -25px;
+      color: rgba(112, 124, 151, 0.7);
+      font-size: 14px;
+      line-height: 26px;
+    }
+  }
+}

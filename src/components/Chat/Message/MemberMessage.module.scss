@@ -1,0 +1,95 @@
+.memberMessage {
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+
+  .avatar {
+    display: block;
+    margin-right: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .messageContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .messageText {
+      max-width: 520px;
+      background: linear-gradient(90.54deg, #60A9F6 0%, #2A8BF2 100%);
+      box-shadow: 10px 10px 25px rgba(42, 139, 242, 0.1), 15px 15px 35px rgba(42, 139, 242, 0.05), 10px 10px 50px rgba(42, 139, 242, 0.1);
+      border-radius: 0 10px 10px 10px;
+      color: #FFFFFF;
+      font-size: 16px;
+      line-height: 26px;
+      padding: 14px 22px;
+    }
+
+    .messageFile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .file {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 6px;
+        width: 40px;
+        height: 40px;
+        margin-right: 20px;
+
+        svg {
+          width: 24px;
+          height: 24px;
+
+          path {
+            fill: #FFFFFF;
+          }
+        }
+      }
+
+      .fileInfo {
+        display: flex;
+        flex-direction: column;
+
+        .fileName {
+          font-size: 16px;
+          line-height: 26px;
+        }
+
+        .fileSize {
+          font-size: 14px;
+          line-height: 26px;
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+    }
+
+    .date {
+      display: block;
+      position: absolute;
+      width: max-content;
+      right: 0;
+      bottom: -25px;
+      color: rgba(112, 124, 151, 0.7);
+      font-size: 14px;
+      line-height: 26px;
+    }
+  }
+
+  .moreButton {
+    cursor: pointer;
+    margin-left: 18px;
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
