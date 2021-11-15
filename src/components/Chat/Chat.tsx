@@ -7,6 +7,7 @@ import MoreVerticalIcon from "../../assets/MoreVerticalIcon";
 import Messages from "./Messages/Messages";
 import styles from "./Chat.module.scss";
 import Form from "./Form/Form";
+import {getStatus} from "../../utils/getStatus";
 
 const Chat: React.FC = () => {
     const {id} = useParams<{ id: string }>();
@@ -24,17 +25,17 @@ const Chat: React.FC = () => {
         return <Loader/>
     }
 
-    if (messages && id) {
+    if (messages && id && currentChat) {
         return (
             <div className={styles.chatContainer}>
                 <div className={styles.header}>
                     <div className={styles.userInfo}>
                         <div style={{
-                            backgroundImage: `url(/images/${currentChat?.photo})`
+                            backgroundImage: `url(/images/${currentChat.photo})`
                         }} className={styles.avatar}/>
                         <div>
-                            <div className={styles.name}>{currentChat?.name}</div>
-                            <div className={styles.status}>{currentChat?.status}</div>
+                            <div className={styles.name}>{currentChat.name}</div>
+                            <div className={styles.status}>{getStatus(currentChat)}</div>
                         </div>
                     </div>
                     <div className={styles.headerButtons}>
@@ -47,7 +48,7 @@ const Chat: React.FC = () => {
                     </div>
                 </div>
                 <Messages messages={messages}/>
-                <Form />
+                <Form id={id}/>
             </div>
         );
     } else return null

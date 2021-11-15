@@ -1,4 +1,4 @@
-export enum chatPoints {
+enum chatPoints {
     ServerSendMessage = 'server-send-message',
     ServerDeleteMessage = 'server-delete-message',
     ServerUpdateMessage = 'server-update-message',
@@ -22,3 +22,5 @@ export enum chatPoints {
     ClientReadMessage = 'client-read-message',
     ClientDeleteRoom = 'client-delete-room',
 }
+
+export default chatPoints

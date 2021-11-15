@@ -1,6 +1,6 @@
 export interface IMessage {
     id: string,
-    type: string,
+    type?: string,
     photo: string,
     text: string,
     date: number,

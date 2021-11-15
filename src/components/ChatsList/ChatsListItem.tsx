@@ -3,10 +3,11 @@ import styles from "./ChatsList.module.scss";
 import {IChatsListItem} from "./ChatsList";
 import {Link} from "react-router-dom";
 import {timeSince} from "../../utils/convertTime";
+import {getStatus} from "../../utils/getStatus";
 
 
 const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
-    const { photo, name, status, time, message, noChecked, id } = chat;
+    const { photo, name, time, message, noChecked, id } = chat;
 
     return (
         <Link to={`/chat/${id}`} className={styles.listItemWrapper}>
@@ -18,7 +19,7 @@ const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
                         }} className={styles.avatar}/>
                         <div>
                             <div className={styles.name}>{name}</div>
-                            <div className={styles.status}>{status}</div>
+                            <div className={styles.status}>{getStatus(chat)}</div>
                         </div>
                     </div>
                     <div className={styles.time}>{timeSince(time)}</div>

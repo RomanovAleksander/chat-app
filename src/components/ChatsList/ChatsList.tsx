@@ -9,12 +9,17 @@ export interface IChatsListItem {
     photo: string,
     noChecked: number,
     message: string,
-    file: string,
+    file?: string | {
+        name: string,
+        size: number,
+        type: string,
+        href: string
+    },
     time: number,
     online: boolean,
     isRoom: boolean,
     status: string,
-    exitDate: number | boolean,
+    exitDate: number | false,
 }
 
 interface IChatsList {
@@ -24,6 +29,7 @@ interface IChatsList {
 const ChatsList: FC<IChatsList> = ({ chats }) => {
     const { searchQuery } = useChat();
     const filterChats = () => {
+        console.log('chats: ', chats)
         if (searchQuery === '') {
             return chats;
         }

@@ -1,19 +1,30 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-import styles from './Form.module.scss';
 import PlusIcon from "../../../assets/PlusIcon";
 import SmileIcon from "../../../assets/SmileIcon";
 import SendIcon from "../../../assets/SendIcon";
+import styles from './Form.module.scss';
+import {useSocket} from "../../../context/SocketContext/SocketContext";
 
-const Form: React.FC = () => {
+const Form: React.FC<{ id: string }> = ({ id }) => {
     const [message, setMessage] = useState('');
+    const { sendMessage, startWriting, stopWriting } = useSocket();
 
     const handleSubmit = (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log('send');
+        sendMessage(message, id);
+        setMessage('');
     }
 
     const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
-        setMessage(event.target.value)
+        setMessage(event.target.value);
+    }
+
+    const handleFocus = () => {
+        startWriting(id);
+    }
+
+    const handleBlur = () => {
+        stopWriting(id);
     }
 
     return (
@@ -25,7 +36,10 @@ const Form: React.FC = () => {
                 <input type="text" className={styles.formInput}
                        placeholder="Type a message here"
                        value={message}
-                       onChange={handleChange}/>
+                       onChange={handleChange}
+                       onFocus={handleFocus}
+                       onBlur={handleBlur}
+                />
                 <div className={styles.smileIcon}>
                     <SmileIcon />
                 </div>

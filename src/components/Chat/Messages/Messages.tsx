@@ -5,7 +5,7 @@ import styles from './Messages.module.scss';
 import UserMessage from "../Message/UserMessage";
 
 const Messages: React.FC<{ messages: IMessage[]} > = ({ messages }) => {
-
+    console.log('messages: ', messages)
     return (
         <div className={styles.messagesContainer}>
             {
