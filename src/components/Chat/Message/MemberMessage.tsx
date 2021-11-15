@@ -1,7 +1,7 @@
 import React from 'react';
 import {IMessage} from "../../../interfaces/interfaces";
 import styles from './MemberMessage.module.scss';
-import MoreHorizontalIcon from "../../../assets/MoreHorizontal";
+// import MoreHorizontalIcon from "../../../assets/MoreHorizontal";
 import FileIcon from "../../../assets/FileIcon";
 import convertFileSize from '../../../utils/convertFileSize';
 import {timeSince} from "../../../utils/convertTime";
@@ -30,9 +30,9 @@ const MemberMessage: React.FC<{ message: IMessage }> = ({ message }) => {
                 </div>
                 <div className={styles.date}>{timeSince(message.date)}</div>
             </div>
-            <div className={styles.moreButton}>
-                <MoreHorizontalIcon/>
-            </div>
+            {/*<div className={styles.moreButton}>*/}
+            {/*    <MoreHorizontalIcon/>*/}
+            {/*</div>*/}
         </div>
     );
 };

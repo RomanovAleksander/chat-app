@@ -1,22 +1,28 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React, {ChangeEvent, FormEvent} from 'react';
 import PlusIcon from "../../../assets/PlusIcon";
 import SmileIcon from "../../../assets/SmileIcon";
 import SendIcon from "../../../assets/SendIcon";
 import styles from './Form.module.scss';
 import {useSocket} from "../../../context/SocketContext/SocketContext";
+import {useChat} from "../../../context/ChatContext";
 
 const Form: React.FC<{ id: string }> = ({ id }) => {
-    const [message, setMessage] = useState('');
-    const { sendMessage, startWriting, stopWriting } = useSocket();
+    const { messageText, setMessageText, isCreateMessage, currentMessageId } = useChat();
+    const { sendMessage, startWriting, stopWriting, updateMessage } = useSocket();
 
     const handleSubmit = (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        sendMessage(message, id);
-        setMessage('');
+        if (isCreateMessage) {
+            sendMessage(messageText, id);
+            setMessageText('');
+        } else {
+            updateMessage(currentMessageId, messageText);
+            setMessageText('');
+        }
     }
 
     const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
-        setMessage(event.target.value);
+        setMessageText(event.target.value);
     }
 
     const handleFocus = () => {
@@ -35,7 +41,7 @@ const Form: React.FC<{ id: string }> = ({ id }) => {
                 </button>
                 <input type="text" className={styles.formInput}
                        placeholder="Type a message here"
-                       value={message}
+                       value={messageText}
                        onChange={handleChange}
                        onFocus={handleFocus}
                        onBlur={handleBlur}

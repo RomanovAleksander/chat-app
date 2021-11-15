@@ -4,13 +4,15 @@ import {IChatsListItem} from "./ChatsList";
 import {Link} from "react-router-dom";
 import {timeSince} from "../../utils/convertTime";
 import {getStatus} from "../../utils/getStatus";
+import {useChat} from "../../context/ChatContext";
 
 
 const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
     const { photo, name, time, message, noChecked, id } = chat;
+    const { addCurrentChat } = useChat();
 
     return (
-        <Link to={`/chat/${id}`} className={styles.listItemWrapper}>
+        <Link to={`/chat/${id}`} className={styles.listItemWrapper} onClick={() => addCurrentChat(chat)}>
             <div className={styles.listItem}>
                 <div className={styles.itemHeader}>
                     <div className={styles.userInfo}>

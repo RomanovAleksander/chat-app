@@ -14,7 +14,17 @@ interface IChatContext {
     messages: IMessage[] | null,
     getMessages: (id: string) => Promise<void>,
     addMessage: (message: IMessageResponse) => void,
-    toggleWriting: (room: string) => void
+    toggleWriting: (room: string) => void,
+    deleteChatMessage: (id: string) => void,
+    addCurrentChat: (chat: IChatsListItem) => void,
+    updateChatMessage: (message: {id: string, text: string}) => void,
+    currentChat: IChatsListItem | null,
+    messageText: string,
+    setMessageText: (messageText: string) => void,
+    isCreateMessage: boolean,
+    setIsCreateMessage: (isCreateMessage: boolean) => void,
+    currentMessageId: string,
+    setCurrentMessageId: (currentMessageId: string) => void
 }
 
 const ChatContext = React.createContext({} as IChatContext);
@@ -26,7 +36,11 @@ export function useChat() {
 const ChatProvider: FC = ({ children }) => {
     const [chats, setChats] = useState<IChatsListItem[] | null>(null);
     const [messages, setMessages] = useState<IMessage[] | null>(null);
+    const [currentChat, setCurrentChat] = useState<IChatsListItem | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>('');
+    const [messageText, setMessageText] = useState<string>('');
+    const [currentMessageId, setCurrentMessageId] = useState<string>('');
+    const [isCreateMessage, setIsCreateMessage] = useState<boolean>(true);
     const {request, loading} = useHttp();
     const {token, user} = useAuth();
 
@@ -44,7 +58,6 @@ const ChatProvider: FC = ({ children }) => {
             const data = await request(`/chat-room/${id}/0/0`, 'GET', null, {
                 Authorization: `${token}`
             });
-            console.log(data);
             setMessages(data);
         } catch (e) {}
     }, [request, token])
@@ -53,17 +66,21 @@ const ChatProvider: FC = ({ children }) => {
         setSearchQuery(query)
     };
 
-    const updateArray = (message: IMessage, idx: number, isRooms: boolean) => {
+    const updateArray = (array: IMessage[] | IChatsListItem[], message: IMessage, idx: number, isRooms: boolean) => {
         if (messages && chats) {
-            const updatedRoom = { ...chats[idx], time: message.date, message: message.text, file: message.file };
+            const updatedRoom = { ...array[idx], time: message.date, message: message.text, file: message.file };
 
             if (idx === -1) {
-                return isRooms ? chats : [...messages, message];
+                return isRooms ? array : [...array, message];
             }
-            return [...messages.slice(0, idx), (isRooms ? updatedRoom : message), ...messages.slice(idx + 1)]
+            return [...array.slice(0, idx), (isRooms ? updatedRoom : message), ...array.slice(idx + 1)]
         }
-        return isRooms ? chats : messages;
-    }
+        return array;
+    };
+
+    const addCurrentChat = (chat: IChatsListItem) => {
+        setCurrentChat(chat)
+    };
 
     const addMessage = (message: IMessageResponse) => {
         if (messages && user && chats) {
@@ -76,8 +93,39 @@ const ChatProvider: FC = ({ children }) => {
                     : newMessage = {...message, type: 'member'};
             }
 
-            setChats(updateArray(newMessage, roomIndex, true) as IChatsListItem[]);
-            setMessages(updateArray(newMessage, messageIndex, false) as IMessage[]);
+            setChats(updateArray(chats, newMessage, roomIndex, true) as IChatsListItem[]);
+            setMessages(updateArray(messages, newMessage, messageIndex, false) as IMessage[]);
+        }
+    };
+
+    const deleteChatMessage = (id: string) => {
+        if ( messages && chats && currentChat ) {
+            const updatedMessages = messages.filter((message) => message.id !== id);
+            const lastMessage = updatedMessages[updatedMessages.length - 1];
+
+            const roomIndex = chats.findIndex((room) => room.id === currentChat.id);
+            const updatedRoomElement = { ...chats[roomIndex], time: lastMessage.date, message: lastMessage.text, file: lastMessage.file };
+            let updatedRooms = [...chats.slice(0, roomIndex), updatedRoomElement, ...chats.slice(roomIndex + 1)];
+
+            setMessages(updatedMessages);
+            setChats(updatedRooms);
+        }
+    };
+
+    const updateChatMessage = (message: { id: string, text: string }) => {
+        if (chats && messages && currentChat) {
+            let newMessage: IMessage = {} as IMessage;
+            const lastMessage = messages[messages.length - 1];
+            const messageIndex = messages.findIndex((item) => item.id === message.id);
+            const roomIndex = chats.findIndex((room) => room.id === currentChat.id);
+
+            newMessage = {...messages[messageIndex], text: message.text};
+
+            if (lastMessage.id === message.id) setChats(updateArray(chats, newMessage, roomIndex, true) as IChatsListItem[]);
+
+            setMessages(updateArray(messages, newMessage, messageIndex, false) as IMessage[]);
+            setIsCreateMessage(true);
+            setCurrentMessageId('');
         }
     };
 
@@ -92,7 +140,12 @@ const ChatProvider: FC = ({ children }) => {
     };
 
     const value: IChatContext = {
-        chats, loading, getChats, searchQuery, changeSearchQuery, messages, getMessages, addMessage, toggleWriting
+        chats, loading, getChats, searchQuery,
+        changeSearchQuery, messages, getMessages,
+        addMessage, toggleWriting, deleteChatMessage,
+        addCurrentChat, updateChatMessage, currentChat,
+        setMessageText, messageText, isCreateMessage, setIsCreateMessage,
+        currentMessageId, setCurrentMessageId
     };
 
     return (
