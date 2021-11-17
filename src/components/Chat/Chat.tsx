@@ -1,13 +1,13 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {useChat} from "../../context/ChatContext";
 import {useParams} from "react-router-dom";
 import Loader from "../Loader/Loader";
 import AttachIcon from "../../assets/AttachIcon";
 import MoreVerticalIcon from "../../assets/MoreVerticalIcon";
 import Messages from "./Messages/Messages";
-import styles from "./Chat.module.scss";
 import Form from "./Form/Form";
 import {getStatus} from "../../utils/getStatus";
+import styles from "./Chat.module.scss";
 
 const Chat: React.FC = () => {
     const {id} = useParams<{ id: string }>();

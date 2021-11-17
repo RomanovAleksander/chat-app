@@ -1,8 +1,10 @@
 .userMessage {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   margin-bottom: 35px;
+  height: fit-content;
 
   .moreButton {
     cursor: pointer;
@@ -18,12 +20,12 @@
     display: flex;
     flex-direction: column;
     right: 0;
+    height: 100%;
 
     .messageText {
       max-width: 520px;
       background: #FFFFFF;
       border: 1px solid rgba(112, 124, 151, 0.25);
-      box-sizing: border-box;
       box-shadow: 10px 10px 25px rgba(112, 124, 151, 0.05), 15px 15px 35px rgba(112, 124, 151, 0.05);
       color: #707C97;
       font-size: 16px;
@@ -42,5 +44,30 @@
       font-size: 14px;
       line-height: 26px;
     }
+  }
+}
+
+.messageMenu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  top: 0;
+  left: -75px;
+  background: #FFFFFF;
+  border: 1px solid rgba(112, 124, 151, 0.25);
+  box-shadow: 10px 10px 25px rgba(112, 124, 151, 0.05), 15px 15px 35px rgba(112, 124, 151, 0.05);
+  border-radius: 10px;
+  z-index: 2;
+
+  .menuButton {
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    color: #707C97;
+    margin: 0 12px;
+    cursor: pointer;
   }
 }

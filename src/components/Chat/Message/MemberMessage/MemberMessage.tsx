@@ -1,10 +1,10 @@
 import React from 'react';
-import {IMessage} from "../../../interfaces/interfaces";
+import {IMessage} from "../../../../interfaces/interfaces";
 import styles from './MemberMessage.module.scss';
 // import MoreHorizontalIcon from "../../../assets/MoreHorizontal";
-import FileIcon from "../../../assets/FileIcon";
-import convertFileSize from '../../../utils/convertFileSize';
-import {timeSince} from "../../../utils/convertTime";
+import FileIcon from "../../../../assets/FileIcon";
+import convertFileSize from '../../../../utils/convertFileSize';
+import {timeSince} from "../../../../utils/convertTime";
 
 const MemberMessage: React.FC<{ message: IMessage }> = ({ message }) => {
     return (

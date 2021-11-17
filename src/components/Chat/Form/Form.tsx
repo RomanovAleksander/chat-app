@@ -3,9 +3,9 @@ import Picker from 'emoji-picker-react';
 import PlusIcon from "../../../assets/PlusIcon";
 import SmileIcon from "../../../assets/SmileIcon";
 import SendIcon from "../../../assets/SendIcon";
-import styles from './Form.module.scss';
 import {useSocket} from "../../../context/SocketContext/SocketContext";
 import {useChat} from "../../../context/ChatContext";
+import styles from './Form.module.scss';
 
 const Form: React.FC<{ id: string, focusLastElement: () => void }> = ({ id, focusLastElement }) => {
     const [isPicker, setIsPicker] = useState<boolean>(false);
