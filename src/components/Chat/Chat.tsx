@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useChat} from "../../context/ChatContext";
 import {useParams} from "react-router-dom";
 import Loader from "../Loader/Loader";
@@ -16,6 +16,11 @@ const Chat: React.FC = () => {
         if (chats) return chats.find((chat) => chat.id === id)
     };
     const currentChat = findCurrentChat(id);
+
+    const focusLastElement = () => {
+        const element: (HTMLSpanElement | null) = document.querySelector('#focusedElement');
+        if (element !== null) element.scrollIntoView();
+    }
 
     useEffect(() => {
         if (id) getMessages(id)
@@ -47,8 +52,8 @@ const Chat: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                <Messages messages={messages}/>
-                <Form id={id}/>
+                <Messages messages={messages} focusLastElement={focusLastElement} />
+                <Form id={id} focusLastElement={focusLastElement} />
             </div>
         );
     } else return null

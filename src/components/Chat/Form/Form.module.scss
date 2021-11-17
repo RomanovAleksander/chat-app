@@ -5,6 +5,7 @@
   padding-left: 60px;
 
   form {
+    position: relative;
     display: flex;
     align-items: center;
     height: 100%;
@@ -12,7 +13,7 @@
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
 
-    button {
+    .chatsButton {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -65,6 +66,12 @@
         width: 20px;
         height: 20px;
       }
+    }
+
+    aside {
+      position: absolute;
+      right: 0;
+      top: -320px;
     }
   }
 }

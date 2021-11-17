@@ -7,21 +7,20 @@ import {timeSince} from "../../../utils/convertTime";
 interface IUserMessage {
     message: IMessage,
     deleteMessage: (id: string) => void,
-    editMessage: (text: string, id: string) => void
+    editMessage: (text: string, id: string) => void,
+    toggleMenu?: () => void
 }
 
 const UserMessage: React.FC<IUserMessage> = ({ message, deleteMessage, editMessage }) => {
     const [showMenu, setShowMenu] = useState(false);
     const toggleMenu = () => setShowMenu(() => !showMenu);
+    const onDelete = () => deleteMessage(message.id);
+    const onEdit = () => editMessage(message.text, message.id);
 
     return (
         <div className={styles.userMessage}>
             <div className={styles.moreButton} onClick={toggleMenu}>
-                { showMenu ? <div>
-                    <button onClick={() => deleteMessage(message.id)}>Delete</button>
-                    <button onClick={() => editMessage(message.text, message.id)}>Edit</button>
-                    <button>Close</button>
-                </div> : null }
+                { showMenu ? <MessageMenu deleteMessage={onDelete} editMessage={onEdit} toggleMenu={toggleMenu}/> : null }
                 <MoreHorizontalIcon/>
             </div>
             <div style={{
@@ -33,6 +32,22 @@ const UserMessage: React.FC<IUserMessage> = ({ message, deleteMessage, editMessa
             </div>
         </div>
     );
+};
+
+interface IMessageMessage {
+    deleteMessage: () => void,
+    editMessage: () => void,
+    toggleMenu: () => void
+}
+
+const MessageMenu: React.FC<IMessageMessage> = ({ deleteMessage, editMessage, toggleMenu }) => {
+    return (
+        <div>
+            <button onClick={deleteMessage}>Delete</button>
+            <button onClick={editMessage}>Edit</button>
+            <button onClick={toggleMenu}>Close</button>
+        </div>
+    )
 };
 
 export default UserMessage;

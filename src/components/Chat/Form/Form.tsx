@@ -1,4 +1,5 @@
-import React, {ChangeEvent, FormEvent} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
+import Picker from 'emoji-picker-react';
 import PlusIcon from "../../../assets/PlusIcon";
 import SmileIcon from "../../../assets/SmileIcon";
 import SendIcon from "../../../assets/SendIcon";
@@ -6,9 +7,14 @@ import styles from './Form.module.scss';
 import {useSocket} from "../../../context/SocketContext/SocketContext";
 import {useChat} from "../../../context/ChatContext";
 
-const Form: React.FC<{ id: string }> = ({ id }) => {
+const Form: React.FC<{ id: string, focusLastElement: () => void }> = ({ id, focusLastElement }) => {
+    const [isPicker, setIsPicker] = useState<boolean>(false);
     const { messageText, setMessageText, isCreateMessage, currentMessageId } = useChat();
     const { sendMessage, startWriting, stopWriting, updateMessage } = useSocket();
+
+    const onEmojiClick = (event:any, emojiObject:any) => {
+        setMessageText(messageText + emojiObject.emoji);
+    }
 
     const handleSubmit = (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -19,6 +25,8 @@ const Form: React.FC<{ id: string }> = ({ id }) => {
             updateMessage(currentMessageId, messageText);
             setMessageText('');
         }
+        setIsPicker(false);
+        focusLastElement()
     }
 
     const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
@@ -36,22 +44,23 @@ const Form: React.FC<{ id: string }> = ({ id }) => {
     return (
         <div className={styles.formWrapper}>
             <form onSubmit={handleSubmit}>
-                <button type='button'>
+                <button type='button' className={styles.chatsButton}>
                     <PlusIcon />
                 </button>
-                <input type="text" className={styles.formInput}
-                       placeholder="Type a message here"
-                       value={messageText}
-                       onChange={handleChange}
-                       onFocus={handleFocus}
-                       onBlur={handleBlur}
+                <input className={styles.formInput}
+                            placeholder="Type a message here"
+                            value={messageText}
+                            onChange={handleChange}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
                 />
-                <div className={styles.smileIcon}>
+                <div className={styles.smileIcon} onClick={() => setIsPicker(!isPicker)}>
                     <SmileIcon />
                 </div>
-                <button className={styles.sendBtn} type='submit'>
+                <button className={`${styles.chatsButton} ${styles.sendBtn}`} type='submit'>
                     <SendIcon />
                 </button>
+                { isPicker && <Picker onEmojiClick={onEmojiClick}/> }
             </form>
         </div>
     );
