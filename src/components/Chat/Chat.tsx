@@ -17,9 +17,6 @@ const Chat: React.FC = () => {
     };
     const currentChat = findCurrentChat(id);
 
-    // const {getMessages, messages, loading, currentChat} = useChat();
-    // const id = currentChat?.id;
-
     const focusLastElement = () => {
         const element: (HTMLSpanElement | null) = document.querySelector('#focusedElement');
         if (element !== null) element.scrollIntoView();
