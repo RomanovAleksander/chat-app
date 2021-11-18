@@ -24,7 +24,8 @@ interface IChatContext {
     isCreateMessage: boolean,
     setIsCreateMessage: (isCreateMessage: boolean) => void,
     currentMessageId: string,
-    setCurrentMessageId: (currentMessageId: string) => void
+    setCurrentMessageId: (currentMessageId: string) => void,
+    readChatMessages: (res: {room: string, user: string}) => void,
 }
 
 const ChatContext = React.createContext({} as IChatContext);
@@ -35,7 +36,7 @@ export function useChat() {
 
 const ChatProvider: FC = ({ children }) => {
     const [chats, setChats] = useState<IChatsListItem[] | null>(null);
-    const [messages, setMessages] = useState<IMessage[] | null>(null);
+    const [messages, setMessages] = useState<IMessage[]>([]);
     const [currentChat, setCurrentChat] = useState<IChatsListItem | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [messageText, setMessageText] = useState<string>('');
@@ -67,13 +68,20 @@ const ChatProvider: FC = ({ children }) => {
     };
 
     const updateArray = (array: IMessage[] | IChatsListItem[], message: IMessage, idx: number, isRooms: boolean) => {
-        if (messages && chats) {
-            const updatedRoom = { ...array[idx], time: message.date, message: message.text, file: message.file };
-
+        if (chats) {
             if (idx === -1) {
                 return isRooms ? array : [...array, message];
             }
-            return [...array.slice(0, idx), (isRooms ? updatedRoom : message), ...array.slice(idx + 1)]
+            if (isRooms)  {
+                const room: any = array[idx];
+                const updatedRoom = {
+                    ...room, time: message.date, message: message.text, file: message.file,
+                    noChecked: message.email !== user?.email ? room.noChecked + 1 : room.noChecked
+                };
+                return [...array.slice(0, idx), updatedRoom, ...array.slice(idx + 1)]
+            }
+
+            return [...array.slice(0, idx), message, ...array.slice(idx + 1)]
         }
         return array;
     };
@@ -83,7 +91,7 @@ const ChatProvider: FC = ({ children }) => {
     };
 
     const addMessage = (message: IMessageResponse) => {
-        if (messages && user && chats) {
+        if (user && chats) {
             let newMessage: IMessage = {} as IMessage;
             const messageIndex = messages.findIndex((item) => item.id === message.id);
             const roomIndex = chats.findIndex((room) => room.id === message.room);
@@ -99,7 +107,7 @@ const ChatProvider: FC = ({ children }) => {
     };
 
     const deleteChatMessage = (id: string) => {
-        if ( messages && chats && currentChat ) {
+        if (chats && currentChat) {
             const updatedMessages = messages.filter((message) => message.id !== id);
             const lastMessage = updatedMessages[updatedMessages.length - 1];
 
@@ -113,7 +121,7 @@ const ChatProvider: FC = ({ children }) => {
     };
 
     const updateChatMessage = (message: { id: string, text: string }) => {
-        if (chats && messages && currentChat) {
+        if (chats && currentChat) {
             let newMessage: IMessage = {} as IMessage;
             const lastMessage = messages[messages.length - 1];
             const messageIndex = messages.findIndex((item) => item.id === message.id);
@@ -139,13 +147,28 @@ const ChatProvider: FC = ({ children }) => {
         }
     };
 
+    const readChatMessages = (res: {room: string, user: string}) => {
+        if (chats) {
+            console.log('will readed')
+            console.log(user?.id === res.user)
+            if (user && user.id === res.user) {
+                console.log('readed')
+                const roomIndex = chats.findIndex((item) => item.id === res.room);
+                const updatedRoom = { ...chats[roomIndex], noChecked: 0 };
+                console.log(updatedRoom)
+
+                setChats([...chats.slice(0, roomIndex), { ...chats[roomIndex], noChecked: 0 }, ...chats.slice(roomIndex + 1)]);
+            }
+        }
+    }
+
     const value: IChatContext = {
         chats, loading, getChats, searchQuery,
         changeSearchQuery, messages, getMessages,
         addMessage, toggleWriting, deleteChatMessage,
         addCurrentChat, updateChatMessage, currentChat,
         setMessageText, messageText, isCreateMessage, setIsCreateMessage,
-        currentMessageId, setCurrentMessageId
+        currentMessageId, setCurrentMessageId, readChatMessages
     };
 
     return (

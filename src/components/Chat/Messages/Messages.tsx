@@ -7,9 +7,9 @@ import {useSocket} from "../../../context/SocketContext/SocketContext";
 import {useChat} from "../../../context/ChatContext";
 import Loader from "../../Loader/Loader";
 
-const Messages: React.FC<{ messages: IMessage[], focusLastElement: () => void } > = ({ messages, focusLastElement }) => {
+const Messages: React.FC<{ messages: IMessage[], focusLastElement: () => void, roomId: string } > = ({ messages, focusLastElement, roomId }) => {
     const { setMessageText, setIsCreateMessage, setCurrentMessageId, currentMessageId, loading } = useChat();
-    const { deleteMessage } = useSocket();
+    const { deleteMessage, readMessages } = useSocket();
 
     const clearMessageForm = () => {
         setMessageText('');
@@ -36,8 +36,9 @@ const Messages: React.FC<{ messages: IMessage[], focusLastElement: () => void } 
     }
 
     useEffect(() => {
-        focusLastElement()
-    }, [focusLastElement])
+        focusLastElement();
+        readMessages(roomId);
+    }, [focusLastElement, readMessages, roomId])
 
     return (
         <div className={styles.messagesContainer}>

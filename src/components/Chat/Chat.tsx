@@ -52,7 +52,7 @@ const Chat: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                <Messages messages={messages} focusLastElement={focusLastElement} />
+                <Messages messages={messages} focusLastElement={focusLastElement} roomId={id} />
                 <Form id={id} focusLastElement={focusLastElement} />
             </div>
         );

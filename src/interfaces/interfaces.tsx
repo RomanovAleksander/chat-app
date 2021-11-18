@@ -5,6 +5,7 @@ export interface IMessage {
     text: string,
     date: number,
     status: string,
+    email: string,
     file: {
         name: string,
         size: number,

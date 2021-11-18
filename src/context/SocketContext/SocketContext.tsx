@@ -1,6 +1,6 @@
 import io, {Socket} from 'socket.io-client';
 
-import React, {useContext, useState, useCallback, useEffect, useRef, FC} from 'react';
+import React, {useContext, useEffect, useRef, FC} from 'react';
 import {useAuth} from "../AuthContext";
 import chatPoints from "./chatPoints";
 import {useChat} from "../ChatContext";
@@ -39,6 +39,7 @@ interface ISocketContext {
     stopWriting: (roomId: string) => void;
     deleteMessage: (id: string) => void;
     updateMessage: (id: string, text: string) => void;
+    readMessages: (roomId: string) => void;
 }
 
 const SocketContext = React.createContext({} as ISocketContext);
@@ -50,7 +51,7 @@ export function useSocket() {
 const SocketProvider: FC = ({children}) => {
     const SERVER_URL = 'http://localhost:3001';
     const {token, user} = useAuth();
-    const {addMessage, toggleWriting, deleteChatMessage, updateChatMessage} = useChat();
+    const {addMessage, toggleWriting, deleteChatMessage, updateChatMessage, readChatMessages} = useChat();
     const socket = useRef<Socket | null>(null);
 
     useEffect(() => {
@@ -87,11 +88,14 @@ const SocketProvider: FC = ({children}) => {
             updateChatMessage(message)
         });
 
+        socket.current?.on(chatPoints.ClientReadMessage, (res: ISocketResponse) => {
+            readChatMessages(res)
+        });
 
         return () => {
             socket.current?.disconnect()
         }
-    }, [user, token, addMessage, toggleWriting, deleteChatMessage, updateChatMessage]);
+    }, [user, token, addMessage, toggleWriting, deleteChatMessage, updateChatMessage, readChatMessages]);
 
     const startWriting = (roomId: string) => {
         socket.current?.emit(chatPoints.ServerStartWriting, {
@@ -126,8 +130,14 @@ const SocketProvider: FC = ({children}) => {
         })
     };
 
+    const readMessages = (roomId: string) => {
+        socket.current?.emit(chatPoints.ServerReadMessage, {
+            id: roomId,
+        });
+    };
+
     const value: ISocketContext = {
-        sendMessage, startWriting, stopWriting, deleteMessage, updateMessage
+        sendMessage, startWriting, stopWriting, deleteMessage, updateMessage, readMessages
     };
 
     return (
