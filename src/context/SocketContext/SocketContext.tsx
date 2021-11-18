@@ -5,7 +5,7 @@ import {useAuth} from "../AuthContext";
 import chatPoints from "./chatPoints";
 import {useChat} from "../ChatContext";
 
-interface IFile {
+export interface IFile {
     originalName: string;
     size: number;
     buffer: File;
@@ -40,6 +40,7 @@ interface ISocketContext {
     deleteMessage: (id: string) => void;
     updateMessage: (id: string, text: string) => void;
     readMessages: (roomId: string) => void;
+    createRoom: (users: string[], photo?: IFile, name?: string) => void;
 }
 
 const SocketContext = React.createContext({} as ISocketContext);
@@ -51,7 +52,7 @@ export function useSocket() {
 const SocketProvider: FC = ({children}) => {
     const SERVER_URL = 'http://localhost:3001';
     const {token, user} = useAuth();
-    const {addMessage, toggleWriting, deleteChatMessage, updateChatMessage, readChatMessages} = useChat();
+    const {addMessage, toggleWriting, deleteChatMessage, updateChatMessage, readChatMessages, createChat} = useChat();
     const socket = useRef<Socket | null>(null);
 
     useEffect(() => {
@@ -92,10 +93,14 @@ const SocketProvider: FC = ({children}) => {
             readChatMessages(res)
         });
 
+        socket.current?.on(chatPoints.ClientCreateRoom, (res: any) => {
+            createChat(res)
+        });
+
         return () => {
             socket.current?.disconnect()
         }
-    }, [user, token, addMessage, toggleWriting, deleteChatMessage, updateChatMessage, readChatMessages]);
+    }, [user, token, addMessage, toggleWriting, deleteChatMessage, updateChatMessage, readChatMessages, createChat]);
 
     const startWriting = (roomId: string) => {
         socket.current?.emit(chatPoints.ServerStartWriting, {
@@ -136,8 +141,16 @@ const SocketProvider: FC = ({children}) => {
         });
     };
 
+    const createRoom = (users: string[], photo?: IFile, name?: string) => {
+        socket.current?.emit(chatPoints.ServerCreateRoom, {
+            users,
+            photo,
+            name,
+        });
+    };
+
     const value: ISocketContext = {
-        sendMessage, startWriting, stopWriting, deleteMessage, updateMessage, readMessages
+        sendMessage, startWriting, stopWriting, deleteMessage, updateMessage, readMessages, createRoom
     };
 
     return (

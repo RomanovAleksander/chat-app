@@ -4,7 +4,7 @@ import {useHttp} from '../../hooks/http.hook';
 import ConfirmationForm from "./ConfirmationForm/ConfirmationForm";
 import {CHAT_ROUTE, LOGIN_ROUTE} from "../../utils/consts";
 import Loader from "../Loader/Loader";
-import FormInput from "./FormInput";
+import FormInput from "../FormInput/FormInput";
 import styles from './Form.module.scss';
 
 interface DataInterface {

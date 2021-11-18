@@ -26,6 +26,7 @@ interface IChatContext {
     currentMessageId: string,
     setCurrentMessageId: (currentMessageId: string) => void,
     readChatMessages: (res: {room: string, user: string}) => void,
+    createChat: (res: any) => void,
 }
 
 const ChatContext = React.createContext({} as IChatContext);
@@ -64,7 +65,7 @@ const ChatProvider: FC = ({ children }) => {
     }, [request, token])
 
     const changeSearchQuery = (query: string) => {
-        setSearchQuery(query)
+        setSearchQuery(query);
     };
 
     const updateArray = (array: IMessage[] | IChatsListItem[], message: IMessage, idx: number, isRooms: boolean) => {
@@ -149,26 +150,29 @@ const ChatProvider: FC = ({ children }) => {
 
     const readChatMessages = (res: {room: string, user: string}) => {
         if (chats) {
-            console.log('will readed')
-            console.log(user?.id === res.user)
             if (user && user.id === res.user) {
-                console.log('readed')
                 const roomIndex = chats.findIndex((item) => item.id === res.room);
-                const updatedRoom = { ...chats[roomIndex], noChecked: 0 };
-                console.log(updatedRoom)
 
                 setChats([...chats.slice(0, roomIndex), { ...chats[roomIndex], noChecked: 0 }, ...chats.slice(roomIndex + 1)]);
             }
         }
     }
 
+    const createChat = (res: any) => {
+        if (chats) {
+            setChats([...chats, res]);
+        }
+    }
+
+    const sortByTime = (items: IChatsListItem[]) => items.sort((a, b) => b.time - a.time);
+
     const value: IChatContext = {
-        chats, loading, getChats, searchQuery,
+        chats: chats ? sortByTime(chats) : chats, loading, getChats, searchQuery,
         changeSearchQuery, messages, getMessages,
         addMessage, toggleWriting, deleteChatMessage,
         addCurrentChat, updateChatMessage, currentChat,
         setMessageText, messageText, isCreateMessage, setIsCreateMessage,
-        currentMessageId, setCurrentMessageId, readChatMessages
+        currentMessageId, setCurrentMessageId, readChatMessages, createChat
     };
 
     return (

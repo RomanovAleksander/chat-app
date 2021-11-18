@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PlusIcon from "../../assets/PlusIcon";
 import ChatsList from "../../components/ChatsList/ChatsList";
 import Loader from "../../components/Loader/Loader";
@@ -6,13 +6,21 @@ import {useChat} from "../../context/ChatContext";
 import Search from "../../components/Search/Search";
 import Chat from "../../components/Chat/Chat";
 import styles from './ChatsPage.module.scss';
+import ChatCreationForm from "../../components/ChatCreationForm/ChatCreationForm";
 
 const ChatPage: React.FC = () => {
     const {getChats, loading, chats} = useChat();
+    const [showModal, setShowModal] = useState<boolean>(false)
+
+    const toggleModal = () => {
+        setShowModal(!showModal)
+    }
 
     useEffect(() => {
-        getChats()
-    }, [getChats])
+        if (!chats) {
+            getChats()
+        }
+    }, [getChats, chats])
 
     if (loading && !chats) {
         return <Loader/>
@@ -20,27 +28,30 @@ const ChatPage: React.FC = () => {
 
     if (chats) {
         return (
-            <div className={styles.pageWrapper}>
-                <div className={styles.wrapper}>
-                    <div className={styles.chatsContainer}>
-                        <div className={styles.header}>
-                            <div className={styles.headerComponent}>
-                                <div className={styles.title}>Chats</div>
-                                <div className={styles.select}>Recent Chats</div>
+            <>
+                {showModal && <ChatCreationForm toggleModal={toggleModal} />}
+                <div className={styles.pageWrapper}>
+                    <div className={styles.wrapper}>
+                        <div className={styles.chatsContainer}>
+                            <div className={styles.header}>
+                                <div className={styles.headerComponent}>
+                                    <div className={styles.title}>Chats</div>
+                                    <div className={styles.select}>Recent Chats</div>
+                                </div>
+                                <div className={styles.headerComponent}>
+                                    <button className={styles.createButton} onClick={toggleModal}>
+                                        <PlusIcon/>
+                                        <p>Create new Chat</p>
+                                    </button>
+                                </div>
                             </div>
-                            <div className={styles.headerComponent}>
-                                <button className={styles.createButton}>
-                                    <PlusIcon/>
-                                    <p>Create new Chat</p>
-                                </button>
-                            </div>
+                            <Search/>
+                            <ChatsList/>
                         </div>
-                        <Search/>
-                        <ChatsList chats={chats}/>
+                        <Chat/>
                     </div>
-                    <Chat/>
                 </div>
-            </div>
+            </>
         );
     } else return null
 };

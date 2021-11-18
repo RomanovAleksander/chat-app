@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import ChatsListItem from "./ChatsListItem";
 import {useChat} from "../../context/ChatContext";
 import styles from './ChatsList.module.scss';
@@ -22,26 +22,24 @@ export interface IChatsListItem {
     exitDate: number | false,
 }
 
-interface IChatsList {
-    chats: IChatsListItem[]
-}
+const ChatsList: FC = () => {
+    const { searchQuery, chats } = useChat();
+    const [filteredChats, setFilteredChats] = useState<IChatsListItem[] | null>(chats);
 
-const ChatsList: FC<IChatsList> = ({ chats }) => {
-    const { searchQuery } = useChat();
-    const filterChats = () => {
-        console.log('chats: ', chats)
-        if (searchQuery === '') {
-            return chats;
+    useEffect(() => {
+        const filterChats = (chats: IChatsListItem[]) => {
+            return chats.filter(item => {
+                return item.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
+            });
         }
 
-        return chats.filter(item => {
-            return item.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
-        });
-    }
+        if (searchQuery === '') setFilteredChats(chats);
+        setFilteredChats(chats ? filterChats(chats) : [])
+    }, [searchQuery, setFilteredChats, chats])
 
     return (
         <div className={styles.chatsList}>
-            {filterChats().map((chat) => <ChatsListItem chat={chat} key={chat.id}/>)}
+            {filteredChats?.map((chat) => <ChatsListItem chat={chat} key={chat.id}/>)}
         </div>
     );
 };

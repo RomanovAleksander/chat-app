@@ -15,7 +15,7 @@ const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
 
     const handleClick = () => {
         addCurrentChat(chat);
-        readMessages(id);
+        if (noChecked) readMessages(id);
     }
 
     return (
