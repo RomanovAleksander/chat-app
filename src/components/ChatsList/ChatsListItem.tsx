@@ -10,8 +10,9 @@ import {useSocket} from "../../context/SocketContext/SocketContext";
 
 const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
     const { photo, name, time, message, noChecked, id } = chat;
-    const { addCurrentChat } = useChat();
+    const { addCurrentChat, currentChat } = useChat();
     const { readMessages } = useSocket();
+    const isActive = currentChat?.id === id ? styles.activeItem : '';
 
     const handleClick = () => {
         addCurrentChat(chat);
@@ -20,7 +21,7 @@ const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
 
     return (
         <Link to={`/chat/${id}`} className={styles.listItemWrapper} onClick={handleClick}>
-            <div className={styles.listItem}>
+            <div className={`${styles.listItem} ${isActive}`}>
                 <div className={styles.itemHeader}>
                     <div className={styles.userInfo}>
                         <div style={{

@@ -80,6 +80,8 @@
         line-height: 26px;
         color: #707C97;
         max-width: 449px;
+        max-height: 105px;
+        overflow: hidden;
       }
 
       .noChecked {
@@ -97,6 +99,28 @@
         1px 1px 50px rgba(198, 27, 74, 0.15);
         font-size: 13px;
         line-height: 15px;
+        color: #FFFFFF;
+      }
+    }
+  }
+
+  .activeItem {
+    background: linear-gradient(96.78deg, #7CB8F7 0%, #2A8BF2 100%);
+
+    .itemHeader {
+      .userInfo {
+        .status {
+          color: #FFFFFF;
+        }
+      }
+
+      .time {
+        color: rgba(255, 255, 255, 0.75);
+      }
+    }
+
+    .messageContainer {
+      .message {
         color: #FFFFFF;
       }
     }
