@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
+import {Route} from "react-router-dom";
 import PlusIcon from "../../assets/PlusIcon";
 import ChatsList from "../../components/ChatsList/ChatsList";
 import Loader from "../../components/Loader/Loader";
 import {useChat} from "../../context/ChatContext";
 import Search from "../../components/Search/Search";
 import Chat from "../../components/Chat/Chat";
-import styles from './ChatsPage.module.scss';
 import ChatCreationForm from "../../components/ChatCreationForm/ChatCreationForm";
+import {CHAT_ROUTE} from "../../utils/consts";
+import styles from './ChatsPage.module.scss';
 
 const ChatPage: React.FC = () => {
     const {getChats, loading, chats} = useChat();
@@ -48,7 +50,9 @@ const ChatPage: React.FC = () => {
                             <Search/>
                             <ChatsList/>
                         </div>
-                        <Chat/>
+                        <Route path={CHAT_ROUTE}>
+                            <Chat/>
+                        </Route>
                     </div>
                 </div>
             </>

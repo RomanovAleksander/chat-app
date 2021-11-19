@@ -5,7 +5,7 @@ import {
   REGISTRATION_ROUTE,
   HOME_ROUTE,
   CONTACT_ROUTE,
-  NOTIFICATIONS_ROUTE, CALENDAR_ROUTE, SETTINGS_ROUTE, CHAT_ROUTE
+  NOTIFICATIONS_ROUTE, CALENDAR_ROUTE, SETTINGS_ROUTE
 } from "./utils/consts";
 import Form from "./components/Form/Form";
 import ChatsPage from "./pages/ChatsPage/ChatsPage";
@@ -30,10 +30,6 @@ export const publicRoutes: Route[] = [
 export const privateRoutes: Route[] = [
   {
     path: CHATS_ROUTE,
-    Component: ChatsPage
-  },
-  {
-    path: CHAT_ROUTE,
     Component: ChatsPage
   },
   {
