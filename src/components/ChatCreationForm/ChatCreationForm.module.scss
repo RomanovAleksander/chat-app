@@ -88,6 +88,39 @@
       background: #769AC7;
       box-shadow: 6px 6px 25px rgba(42, 139, 242, 0.15), 4px 4px 25px rgba(42, 139, 242, 0.05), 10px 6px 25px rgba(42, 139, 242, 0.15);
     }
+
+    .customFileInput {
+      color: #707C97;
+    }
+
+    .customFileInput::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    .customFileInput::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    .customFileInput::before {
+      content: 'Select file';
+      display: inline-block;
+      background: #769AC7;
+      border: none;
+      border-radius: 3px;
+      padding: 0 13px;
+      outline: none;
+      -webkit-user-select: none;
+      color: #FFFFFF;
+      cursor: pointer;
+    }
+
+    .customFileInput:hover::before {
+      border-color: black;
+    }
+
+    .customFileInput:active::before {
+      background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    }
   }
 
   .buttonsWrapper {
@@ -119,4 +152,3 @@
     }
   }
 }
-

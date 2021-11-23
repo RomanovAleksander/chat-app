@@ -7,16 +7,16 @@ interface IFormInput {
         name: string,
         type: string,
         accept?: string,
-        isNotRequired?: boolean
     },
+    emailRequired?: boolean
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-const FormInput: FC<IFormInput> = ({ item, handleChange }) => {
+const FormInput: FC<IFormInput> = ({ item, handleChange, emailRequired }) => {
     const { value, placeholder, name , type } = item;
     return (
         <input type={type} placeholder={placeholder}
-               name={name} required={ !item.isNotRequired }
+               name={name} required={ emailRequired }
                value={value}
                accept={item.accept}
                onChange={handleChange}
