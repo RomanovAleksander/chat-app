@@ -23,6 +23,8 @@
     height: 100%;
 
     .messageText {
+      display: flex;
+      flex-direction: column;
       max-width: 520px;
       background: #FFFFFF;
       border: 1px solid rgba(112, 124, 151, 0.25);
@@ -32,6 +34,25 @@
       line-height: 26px;
       padding: 14px 22px;
       border-radius: 10px 10px 0 10px;
+      overflow-wrap: anywhere;
+
+      .file {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        color: #2A8BF2;
+
+        p {
+          margin: 0 7px;
+        }
+
+        svg {
+          path {
+            fill: #2A8BF2;
+          }
+        }
+      }
     }
 
     .date {

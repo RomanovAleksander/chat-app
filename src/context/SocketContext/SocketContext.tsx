@@ -34,7 +34,7 @@ interface ISocketResponse {
 }
 
 interface ISocketContext {
-    sendMessage: (message: string, id: string, file?: IFile) => void;
+    sendMessage: (message: string, id: string, file?: any) => void;
     startWriting: (roomId: string) => void;
     stopWriting: (roomId: string) => void;
     deleteMessage: (id: string) => void;

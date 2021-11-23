@@ -22,7 +22,22 @@
       background: linear-gradient(325.78deg, #2A8BF2 14.76%, #7CB8F7 87.3%);
       border: none;
       border-radius: 50%;
+      overflow: hidden;
       cursor: pointer;
+
+      label {
+        cursor: pointer;
+
+        svg {
+          path {
+            fill: #FFFFFF;
+          }
+        }
+      }
+
+      input[type="file"] {
+        display: none;
+      }
     }
 
     .formInput {

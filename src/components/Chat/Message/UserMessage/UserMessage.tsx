@@ -3,6 +3,10 @@ import {IMessage} from "../../../../interfaces/interfaces";
 import MoreHorizontalIcon from "../../../../assets/MoreHorizontal";
 import {timeSince} from "../../../../utils/convertTime";
 import styles from "./UserMessage.module.scss";
+import {splitFileName} from "../../../../utils/splitFileName";
+import convertFileSize from "../../../../utils/convertFileSize";
+import FileIcon from "../../../../assets/FileIcon";
+import {minimizeFileName} from "../../../../utils/minimizeFileName";
 
 interface IUserMessage {
     message: IMessage,
@@ -21,21 +25,36 @@ const UserMessage: FC<IUserMessage> = ({ message, deleteMessage, editMessage, cl
         closeMessageMenu(message.id);
     };
 
-    return (
-        <div className={styles.userMessage}>
-            <div className={styles.moreButton} onClick={toggleMenu}>
-                { !showMenu && <MoreHorizontalIcon/> }
+    if (message) {
+        return (
+            <div className={styles.userMessage}>
+                <div className={styles.moreButton} onClick={toggleMenu}>
+                    { !showMenu && <MoreHorizontalIcon/> }
+                </div>
+                <div style={{
+                    backgroundImage: `url(/images/${message.photo})`
+                }} className={styles.avatar}/>
+                <div className={styles.messageContainer}>
+                    { showMenu && <MessageMenu deleteMessage={onDelete} editMessage={onEdit} toggleMenu={toggleMenu}/> }
+                    <div className={styles.messageContent}>
+                        <div className={styles.messageText}>
+                            {message.text}
+                            {message.file && (
+                                <div className={styles.file}>
+                                    ({convertFileSize(message.file.size)})
+                                    <p>{minimizeFileName(splitFileName(message.file.name))}</p>
+                                    <FileIcon />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div className={styles.date}>{timeSince(message.date)}</div>
+                </div>
             </div>
-            <div style={{
-                backgroundImage: `url(/images/${message.photo})`
-            }} className={styles.avatar}/>
-            <div className={styles.messageContainer}>
-                { showMenu && <MessageMenu deleteMessage={onDelete} editMessage={onEdit} toggleMenu={toggleMenu}/> }
-                <div className={styles.messageText}>{message.text}</div>
-                <div className={styles.date}>{timeSince(message.date)}</div>
-            </div>
-        </div>
-    );
+        );
+    } else {
+        return null;
+    }
 };
 
 interface IMessageMessage {

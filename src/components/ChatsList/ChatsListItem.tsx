@@ -9,7 +9,7 @@ import {useSocket} from "../../context/SocketContext/SocketContext";
 
 
 const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
-    const { photo, name, time, message, noChecked, id } = chat;
+    const { photo, name, time, message, noChecked, id, file } = chat;
     const { addCurrentChat, currentChat } = useChat();
     const { readMessages } = useSocket();
     const isActive = currentChat?.id === id ? styles.activeItem : '';
@@ -28,7 +28,10 @@ const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
                             backgroundImage: `url(/images/${photo})`
                         }} className={styles.avatar}/>
                         <div>
-                            <div className={styles.name}>{name}</div>
+                            <div className={styles.name}>
+                                {name}
+                                { typeof file === 'object' && file.name}
+                            </div>
                             <div className={styles.status}>{getStatus(chat)}</div>
                         </div>
                     </div>
