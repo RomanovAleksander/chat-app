@@ -21,10 +21,11 @@ const Form: React.FC<{ id: string, focusLastElement: () => void }> = ({ id, focu
         event.preventDefault();
         if (isCreateMessage) {
             sendMessage(messageText, id, file);
+
             setTimeout(() => {
                 setMessageText('');
                 setFile('');
-            }, 0)
+            }, 1000)
         } else {
             updateMessage(currentMessageId, messageText);
             setMessageText('');

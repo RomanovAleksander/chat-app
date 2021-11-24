@@ -41,7 +41,7 @@ const ChatsListItem: FC<{ chat: IChatsListItem }> = ({ chat }) => {
                     </div>
                     <div className={styles.messageContainer}>
                         <div className={styles.message}>
-                            {message}
+                            {message} <br/>
                             { isString && file }
                             { isObject && file?.name }
                         </div>
