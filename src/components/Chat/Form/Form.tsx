@@ -24,7 +24,7 @@ const Form: React.FC<{ id: string, focusLastElement: () => void }> = ({ id, focu
             setTimeout(() => {
                 setMessageText('');
                 setFile('');
-            }, 0);
+            }, 0)
         } else {
             updateMessage(currentMessageId, messageText);
             setMessageText('');
@@ -41,7 +41,7 @@ const Form: React.FC<{ id: string, focusLastElement: () => void }> = ({ id, focu
         const files = e.target.files;
         const file = files && files[0];
         if (!file) return;
-        setFile({ originalName: file.name, size: file.size, buffer: file })
+        setFile({ originalName: file.name, size: file.size, buffer: file });
     };
 
     const handleFocus = () => {
